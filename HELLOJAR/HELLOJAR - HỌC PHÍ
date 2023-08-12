@@ -1,1 +1,45 @@
+package controller;
+import vn.edu.ptit.*;
+import view.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+class PaymentController {
+    Scanner sc = new Scanner(System.in);
+    public Invoice getInvoice(){
+        // infor student
+        String code = sc.nextLine();
+        String name = sc.nextLine();
+        Student student = new Student(code, name);
+        // infor subject
+        int totalSubject = Integer.parseInt(sc.nextLine());
+        int sumOfCredits = 0;
+        ArrayList<Subject> subject = new ArrayList<>();
+        for(int i = 0;i < totalSubject;i++){
+            String subjectCode = sc.nextLine();
+            String subjectName = sc.nextLine();
+            int total = Integer.parseInt(sc.nextLine());
+            sumOfCredits += total;
+            subject.add(new Subject(subjectName, subjectCode, total));
+        }
+        // infor Decision
+        String decisionCode = sc.nextLine();
+        String decisionName = sc.nextLine();
+        double tuition = Double.parseDouble(sc.nextLine());
+        Rule rule = new Rule(decisionCode, decisionName, tuition);
 
+        Invoice invoice = new Invoice(rule);
+        invoice.setSt(student);
+        invoice.setAlSubject(subject);
+        invoice.setAmount(tuition * sumOfCredits);
+        return invoice;
+    }
+}
+
+public class controller_users {
+    public static void main(String[] args) {
+        PaymentController pc = new PaymentController();
+        //Output for test
+        Invoice invoice = pc.getInvoice();
+        InvoiceView.show(invoice);
+    }
+}

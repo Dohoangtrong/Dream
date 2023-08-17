@@ -1,0 +1,32 @@
+package controller;
+import java.util.*;
+
+public class controller {
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        Stack st = new Stack();
+        int n = sc.nextInt();
+        int arr[] = new int[n];
+        arr[0] = sc.nextInt();
+        st.push(arr[0]);
+        for ( int i = 1; i < n; i++ ){
+            arr[i] = sc.nextInt();
+            if ( st.empty() ){
+                st.push(arr[i]);
+            }else{
+                if ( ((int)st.peek() + arr[i]) % 2 == 0 ){
+                    st.pop();
+                }else{
+                    st.push(arr[i]);
+                }
+            }
+        }
+        int cnt = 0;
+        while(!st.empty()){
+            cnt++;
+            st.pop();
+        }
+        System.out.print(cnt);
+    }
+}

@@ -1,0 +1,19 @@
+package controller;
+
+
+import java.util.Scanner;
+
+public class controller_users {
+    public static void main(String[] args) {
+        long n;
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        while(n-->0){
+            long a;
+            a = sc.nextInt();
+            System.out.print((a+1)*a/2 + "\n");
+        }
+
+
+    }
+}

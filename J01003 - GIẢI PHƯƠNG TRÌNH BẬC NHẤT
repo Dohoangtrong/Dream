@@ -1,0 +1,23 @@
+package controller;
+
+
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class controller_users {
+    public static void main(String[] args) {
+        double a, b;
+        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+        Scanner sc = new Scanner(System.in);
+        a = sc.nextDouble();
+        b = sc.nextDouble();
+        if ( a == 0 && b != 0 ){
+            System.out.print("VN");
+        }else if ( a == 0 && b == 0 ){
+            System.out.print("VSN");
+        }else{
+            String formattedNumber = decimalFormat.format(-b/a);
+            System.out.print(formattedNumber);
+        }
+    }
+}

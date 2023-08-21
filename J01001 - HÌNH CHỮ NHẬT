@@ -1,0 +1,20 @@
+package controller;
+
+
+import java.util.Scanner;
+
+public class controller_users {
+    public static void main(String[] args) {
+        int a, b;
+        Scanner sc = new Scanner(System.in);
+        a = sc.nextInt();
+        b = sc.nextInt();
+        if ( a <= 0 || b <= 0) {
+            System.out.print(0);
+        }else{
+            System.out.print((a+b)*2 + " " + a*b);
+        }
+
+
+    }
+}

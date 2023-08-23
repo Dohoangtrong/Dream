@@ -1,0 +1,27 @@
+package controller;
+import java.util.Scanner;
+
+import static java.lang.StrictMath.sqrt;
+
+public class controller_users {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        while(n-->0){
+            int check = 1;
+            int a = sc.nextInt();
+            for ( int i = 2; i <= sqrt(a); i++){
+                if ( a % i == 0 ){
+                    check = 0;
+                    break;
+                }
+            }
+            if ( check == 1 ){
+                System.out.print("YES\n");
+            }else{
+                System.out.print("NO\n");
+            }
+        }
+    }
+}

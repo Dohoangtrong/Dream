@@ -1,0 +1,38 @@
+package controller;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.StrictMath.sqrt;
+
+public class controller_users {
+
+    public static Long fibonacci(int n) {
+        Long f0 = 0L, f1 = 1L, fn = 1L;
+        if (n < 0) {
+            return -1L;
+        } else if (n == 0 || n == 1) {
+            return 1L;
+        } else {
+            for (int i = 2; i < n; i++) {
+                f0 = f1;
+                f1 = fn;
+                fn = f0 + f1;
+            }
+        }
+        return fn;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        while(n-->0){
+            int a;
+            a = sc.nextInt();
+
+            System.out.println(fibonacci(a));
+        }
+
+    }
+
+}

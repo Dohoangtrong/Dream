@@ -1,0 +1,32 @@
+package controller;
+
+import java.util.*;
+
+public class controller_users {
+
+    public static void process ( int a ){
+        int i = 2;
+        while( a != 1 ){
+            int cnt = 0;
+            while ( a % i == 0 ){
+                a /= i;
+                cnt++;
+            }
+            if ( cnt != 0 ){
+                System.out.printf("%d(%d) ", i, cnt);
+            }
+            i++;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for ( int i = 1; i <= t; i++ ){
+            int a = sc.nextInt();
+            System.out.print("Test " + i + ": ");
+            process(a);
+            System.out.println();
+        }
+    }
+}

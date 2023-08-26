@@ -1,0 +1,32 @@
+package controller;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.StrictMath.sqrt;
+
+public class controller_users {
+
+    public static int check ( int a ){
+        int q = 0;
+        for(int i = 1; i <= sqrt(a); i++){
+            if(a % i == 0){
+                if( i % 2 == 0 ) q++;
+                if( ( a / i ) % 2 == 0 ) q++;
+                if( i * i == a && a % 2 == 0 )
+                    q--;
+            }
+        }
+        return q;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        while(n-->0){
+            int a;
+            a = sc.nextInt();
+            System.out.print(check(a) + "\n");
+        }
+    }
+}

@@ -1,0 +1,25 @@
+package controller;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.StrictMath.sqrt;
+
+public class controller_users {
+
+    public static long ucln(long a, long b){
+        if ( b == 0 ) return a;
+        return ucln( b, a % b);
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        while(n-->0){
+            long a = sc.nextLong();
+            long b = sc.nextLong();
+            long uc = ucln(a,b);
+            System.out.print(a*b/uc + " " + uc + "\n");
+        }
+    }
+}

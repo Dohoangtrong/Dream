@@ -1,0 +1,23 @@
+package controller;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.StrictMath.sqrt;
+
+public class controller_users {
+
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        long sum = 0L;
+        long res = 1;
+        for ( int i = 1; i <= n; i++){
+            res *= i;
+            sum += res;
+        }
+        System.out.print(sum);
+    }
+}

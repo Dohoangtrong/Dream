@@ -1,0 +1,32 @@
+package controller;
+
+import java.util.Scanner;
+
+public class controller {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            long n, max = 1;
+            n = sc.nextLong();
+            long m = n;
+            for ( long i = 2; i <= Math.sqrt(m); i++){
+                while(n % i == 0){
+                    n /= i;
+                    max = i;
+                }
+            }
+            if ( n == 1 ){
+                if ( max == 1 ){
+                    System.out.println(m);
+                }else{
+                    System.out.println(max);
+                }
+            }
+            if ( n > 1 ){
+                System.out.println(n);
+            }
+        }
+
+    }
+}

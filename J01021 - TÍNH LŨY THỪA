@@ -1,0 +1,36 @@
+package controller;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.StrictMath.abs;
+import static java.lang.StrictMath.sqrt;
+
+public class controller_users {
+    public static long div = (long) (1e9 + 7);
+
+    public static long process(int a, long n){
+        if ( n == 0 ) return 1;
+        if ( n == 1 ) return a;
+        long x = process(a,n/2);
+        if ( n % 2 == 0 ){
+            return x * x % div;
+        }else{
+            return (x * x % div * a ) % div;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        long m = 1;
+        int n = 1;
+        while(true){
+            n = sc.nextInt();
+            m = sc.nextLong();
+            if ( n == 0 && m == 0 ){
+               break;
+            }
+            System.out.println(process(n,m));
+        }
+    }
+}

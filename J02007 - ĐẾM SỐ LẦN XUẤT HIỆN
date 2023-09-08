@@ -1,0 +1,25 @@
+package controller;
+
+import java.util.*;
+
+public class controller_users {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        for(int i = 1; i <= t; i++){
+            int n = sc.nextInt();
+            int[] arr = new int[100005];
+            Set<Integer> st = new LinkedHashSet<>();
+            for(int x = 0; x < n; x++){
+                int a = sc.nextInt();
+                arr[a]++;
+                st.add(a);
+            }
+            System.out.println(String.format("Test %d: ", i));
+            for(Integer x : st)
+                System.out.println(String.format("%d xuat hien %d lan", x, arr[x]));
+        }
+
+    }
+}

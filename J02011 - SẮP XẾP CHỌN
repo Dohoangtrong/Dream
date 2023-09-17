@@ -1,0 +1,28 @@
+package controller;
+import java.util.*;
+
+public class controller {
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int arr[] = new int[1000];
+
+        for ( int i = 0; i < n; i++ ){
+            arr[i] = sc.nextInt();
+        }
+
+        int min;
+        for (int i = 0; i < n - 1; i++){
+            min = i;
+            for (int j = i + 1; j < n; j++){
+                if (arr[min] > arr[j]) min = j;
+            }
+            int tmp = arr[min]; arr[min] = arr[i]; arr[i] = tmp;
+            System.out.print("Buoc " + (i+1) + ": ");
+            for (int j = 0; j < n; j++)
+                System.out.print(arr[j] + " ");
+            System.out.println();
+        }
+    }
+}

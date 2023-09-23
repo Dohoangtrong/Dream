@@ -1,0 +1,38 @@
+package controller;
+import java.text.DecimalFormat;
+import java.util.*;
+
+public class controller {
+
+    public static int a, b, arr[] = new int[30], cnt = 0;
+
+    public static void Gen (){
+        cnt++;
+        for ( int i = 1; i <= b; i ++ ) System.out.print(arr[i]);
+        System.out.print(" ");
+        for ( int i = b; i >= 1; i--){
+            if ( arr[i] != a-b+i ){
+                arr[i]++;
+                for ( int j = i+1; j <= b; j++) arr[j] = arr[j-1]+1;
+                break;
+            }
+        }
+        if(arr[1]!=a-b+1) Gen();
+        else{
+            cnt++;
+            for ( int i = 1; i <= b; i ++ ) System.out.print(arr[i]);
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        a = sc.nextInt();
+        b = sc.nextInt();
+        for ( int i = 1; i <= b; i++ ){
+            arr[i] = i;
+        }
+        Gen();
+        System.out.print("Tong cong co " + cnt + " to hop");
+    }
+}

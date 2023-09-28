@@ -1,0 +1,36 @@
+package controller;
+import java.text.DecimalFormat;
+import java.util.*;
+
+public class controller {
+
+    public static boolean check(char a){
+        if ( a == '0' || a == '2' || a== '4' || a == '6' || a == '8'){
+            return true;
+        }
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < n; i++){
+            int checks = 1;
+            String string = sc.nextLine();
+            char[] arr = string.toCharArray();
+            int leng = string.length();
+            for ( int j = 0; j < leng/2; j++){
+                if ( arr[j] != arr[leng-1-j] || check(arr[j]) == false ){
+                    checks = 0;
+                    break;
+                }
+            }
+            if ( checks == 1 ){
+                System.out.println("YES");
+            }else{
+                System.out.println("NO");
+            }
+        }
+    }
+}

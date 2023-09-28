@@ -1,0 +1,36 @@
+package controller;
+
+import java.util.*;
+
+public class controller_users {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+        while(t-->0){
+            Set<String> st = new TreeSet<>();
+            String str = sc.nextLine();
+            String[] res = str.split("\\s+");
+            String str1 = sc.nextLine();
+            String[] res1 = str1.split("\\s+");
+            int leng = res.length, leng1 = res1.length;
+            for ( int i = 0; i < leng; i++ ){
+                int check = 1;
+                for ( int j = 0; j < leng1; j++ ){
+                    if ( res[i].compareTo(res1[j]) == 0 ){
+                        check = 0;
+                        break;
+                    }
+                }
+                if ( check == 1 ){
+                    st.add(res[i]);
+                }
+            }
+            for ( String x : st ){
+                System.out.print(x + " ");
+            }
+            System.out.println();
+        }
+    }
+}

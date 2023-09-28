@@ -1,0 +1,43 @@
+package controller;
+import java.util.*;
+
+public class controller_users {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        sc.nextLine();
+        Vector<String> v = new Vector<>();
+        for(int i = 0 ; i < n ; i++) {
+            String s = sc.nextLine();
+            v.add(s.toLowerCase().trim());
+        }
+        Vector<String> v1 = new Vector<>();
+        for(int i = 0 ; i < v.size() ; i++) {
+            String[] s = v.elementAt(i).split("\\s+");
+            String tmp="";
+            int leng = s.length;
+            for(int j = 0 ; j < leng ; j++) {
+                if(j == leng -1) {
+                    tmp = s[j] + tmp;
+                }else {
+                    tmp+=s[j].substring(0,1);
+                }
+            }
+            v1.add(tmp);
+            int cnt = 0;
+            leng = v1.size();
+            for(int j = 0 ; j < leng;j++) {
+                if( tmp.compareTo(v1.elementAt(j))== 0) {
+                    cnt++;
+                }
+            }
+            if(cnt > 1) System.out.print(tmp + cnt);
+            else System.out.print(tmp);
+            System.out.println("@ptit.edu.vn");
+        }
+    }
+}
+//nGUYEn    quaNG   vInH
+//tRan   thi THU    huOnG
+//nGO   quoC  VINH
+//lE            tuAn    aNH

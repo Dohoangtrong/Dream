@@ -1,0 +1,25 @@
+package controller;
+
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class controller_users {
+    public static void main(String[] args) {
+        Scanner inp = new Scanner(System.in);
+        int t = Integer.parseInt(inp.nextLine());
+        while(t-- > 0){
+            BigInteger a = inp.nextBigInteger();
+            BigInteger b = inp.nextBigInteger();
+            if (a.compareTo(b) < 0) {
+                BigInteger c = a;
+                a = b;
+                b = c;
+            }
+            BigInteger ans = a.subtract(b);
+            if (ans.toString().length() < a.toString().length())
+                System.out.print(0);
+            System.out.println(ans);
+        }
+    }
+}

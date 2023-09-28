@@ -1,0 +1,30 @@
+package controller;
+
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-- > 0){
+            String str = sc.nextLine();
+            str = str.toLowerCase();
+
+            String[] res = str.split("\\s+");
+            StringBuilder builder = new StringBuilder();
+            for (String i : res) {
+                if (i.length() > 0) {
+                    char[] C = i.toCharArray();
+                    C[0] = Character.toUpperCase(C[0]);
+                    builder.append(new String(C));
+                    builder.append(" ");
+                }
+            }
+            String ans = builder.toString().trim();
+            System.out.println(ans);
+        }
+    }
+}

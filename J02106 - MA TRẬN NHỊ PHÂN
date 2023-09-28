@@ -1,0 +1,24 @@
+package controller;
+import java.text.DecimalFormat;
+import java.util.*;
+
+public class controller {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int b[][] = new int[n+1][3];
+        int cnt = 0;
+        for ( int i = 0; i < n; i++){
+            int a = 0;
+            for ( int j = 0; j < 3; j++){
+                b[i][j] = sc.nextInt();
+                if ( b[i][j] == 1 ){
+                    a++;
+                }
+            }
+            if ( a > 1 ) cnt++;
+        }
+        System.out.print(cnt);
+    }
+}

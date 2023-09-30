@@ -1,0 +1,43 @@
+package controller;
+
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static char convert ( int a ){
+        if ( 0 <= a && a < 3 ){ return 'a'; }
+        else if ( 3 <= a && a < 6 ){ return 'b'; }
+        else if ( 6 <= a && a < 9 ) return 'c';
+        else if ( 9 <= a && a < 12 ) return 'd';
+        else if ( 12 <= a && a < 15 ) return 'e';
+        else if ( 15 <= a && a < 19 ) return 'f';
+        else if ( 19 <= a && a < 22 ) return 'g';
+        return 'h';
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-- > 0){
+            String str = sc.nextLine();
+            str = str.toLowerCase();
+            int leng = str.length();
+            int check = 1;
+            for ( int i = 0; i < leng/2; i++ ){
+                char tmp = convert(str.charAt(i) - 'a');
+                char tmp1 = convert(str.charAt(leng-i-1) - 'a');
+                if ( tmp != tmp1 ){
+                    check = 0;
+                    break;
+                }
+            }
+            if ( check == 0 ){
+                System.out.println("NO");
+            }else{
+                System.out.println("YES");
+            }
+        }
+    }
+}

@@ -1,0 +1,39 @@
+package controller;
+
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.Stack;
+
+public class controller_users {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Stack<Character> st = new Stack<>();
+        String str = sc.nextLine();
+        char arr[] = str.toCharArray();
+        int leng = str.length();
+        for ( int i = leng-1; i >= 0; i-- ){
+            if ( st.empty() ){
+                st.push(arr[i]);
+            }else{
+                char a = st.peek();
+                if ( a == arr[i] ){
+                    st.pop();
+                }else{
+                    st.push(arr[i]);
+                }
+            }
+        }
+        if ( st.empty() ) {
+            System.out.print("Empty String");
+        }else{
+            while(!st.empty()){
+                System.out.print(st.peek());
+                st.pop();
+            }
+        }
+    }
+}

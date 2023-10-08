@@ -1,0 +1,38 @@
+package controller;
+
+import java.math.BigInteger;
+import java.text.DecimalFormat;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static String reser(String a){
+        String tmp = "";
+        int leng = a.length();
+        for ( int i = leng-1; i >= 0; i-- ){
+            tmp += a.charAt(i);
+        }
+        return tmp;
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-- > 0){
+            String str = sc.nextLine();
+            String[] res = str.split("\\s+");
+            StringBuilder builder = new StringBuilder();
+            int leng = res.length;
+
+            for ( int i = 0; i < leng; i++) {
+                if (res[i].length() > 0) {
+                    builder.append(reser(res[i]) + " ");
+                }
+            }
+            System.out.println(builder.toString());
+        }
+    }
+}

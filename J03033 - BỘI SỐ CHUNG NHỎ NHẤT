@@ -1,0 +1,21 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class controller_users {
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-- > 0){
+            BigInteger a, b, res;
+            a = sc.nextBigInteger();
+            b = sc.nextBigInteger();
+            res = a.multiply(b);
+            res = res.divide(a.gcd(b));
+            System.out.println( res );
+        }
+    }
+}

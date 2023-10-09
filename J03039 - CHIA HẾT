@@ -1,0 +1,30 @@
+import java.math.BigInteger;
+import java.util.Scanner;
+
+public class controleer {
+
+    public static boolean check(BigInteger a, BigInteger b){
+        if ( a.compareTo(b) == -1 )
+            return false;
+        BigInteger div, k;
+        div = a.divide(b);
+        k = div.multiply(b);
+        if ( k.compareTo(a) == 0 ) return true;
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            BigInteger a, b;
+            a = sc.nextBigInteger();
+            b = sc.nextBigInteger();
+            if ( check(a,b) || check(b,a) ){
+                System.out.println("YES");
+            }else{
+                System.out.println("NO");
+            }
+        }
+    }
+}

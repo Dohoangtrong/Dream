@@ -1,0 +1,50 @@
+import java.math.BigInteger;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class controleer {
+        public static class Point {
+            public double x, y;
+
+            public Point() {
+                x = 0;
+                y = 0;
+            }
+            public Point(double _x, double _y) {
+                this.x = _x;
+                this.y = _y;
+            }
+            public double distance(Point p) {
+                double res = (this.x - p.x) * (this.x - p.x) + (this.y - p.y) * (this.y - p.y);
+                return Math.sqrt(res);
+            }
+
+            public double distance(Point a, Point b) {
+                double ans = (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
+                return Math.sqrt(ans);
+            }
+
+            public void input() {
+                Scanner sc = new Scanner(System.in);
+                this.x = sc.nextDouble();
+                this.y = sc.nextDouble();
+            }
+        }
+
+        public static void main(String[] args) {
+
+            Scanner sc = new Scanner(System.in);
+            sc.useLocale(Locale.US);
+            int t = sc.nextInt();
+            while (t-- > 0) {
+                double x, y;
+                x = sc.nextDouble();
+                y = sc.nextDouble();
+                Point a = new Point(x,y);
+                x = sc.nextDouble();
+                y = sc.nextDouble();
+                Point b = new Point(x,y);
+                System.out.printf(Locale.US,"%.4f\n", a.distance(b));
+            }
+        }
+}

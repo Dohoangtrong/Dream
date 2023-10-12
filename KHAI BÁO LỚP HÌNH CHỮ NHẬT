@@ -1,0 +1,47 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static class Rectange {
+        public double width, height;
+        public String color;
+
+        public Rectange() {
+            width = 0;
+            height = 0;
+        }
+        public Rectange(double _x, double _y, String _c) {
+            this.width = _x;
+            this.height = _y;
+            this.color = _c;
+        }
+        void input(Scanner sc) {
+            this.width = sc.nextDouble();
+            this.height = sc.nextDouble();
+            String s = sc.next();
+            this.color = s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+        }
+        void proces(){
+            if ( this.width > 0 && this.height > 0 ){
+                int a = (int)this.width;
+                int b = (int)this.height;
+                System.out.printf("%d %d %s", (a+b)*2, a*b, this.color);
+            }else{
+                System.out.println("INVALID");
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Rectange a = new Rectange();
+        a.input(sc);
+        a.proces();
+    }
+}

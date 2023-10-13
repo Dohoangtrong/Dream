@@ -1,0 +1,45 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static class Teacher {
+        public String name, id;
+        public long cash;
+        void input(Scanner sc) {
+            this.id = sc.nextLine();
+            this.name = sc.nextLine();
+            this.cash = sc.nextLong();
+        }
+        long proces(String a){
+            long res = 0;
+            res = (a.charAt(2) - '0') * 10 + a.charAt(3) - '0';
+            return res;
+        }
+        String pos(String a){
+            char arr[] = new char[2];
+            arr[0] = a.charAt(0);
+            arr[1] = a.charAt(1);
+            if ( arr[0] == 'H' && arr[1] == 'T' ) return "2000000";
+            else if ( arr[0] == 'H' && arr[1] == 'P' ) return "900000";
+            return "500000";
+        }
+        void print(){
+            long res1 = proces(this.id);
+            String res2 = pos(this.id);
+            long res3 = res1 * this.cash + Long.parseLong(res2);
+            System.out.print(this.id + " " + this.name + " " + res1 + " " + res2 + " " + res3);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Teacher a = new Teacher();
+        a.input(sc);
+        a.print();
+    }
+}

@@ -1,0 +1,51 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static class SV {
+        public String name, date, clas;
+        public float d;
+        void input(Scanner sc) {
+            this.name = sc.nextLine();
+            this.clas = sc.nextLine();
+            this.date = sc.nextLine();
+            this.d = sc.nextFloat();
+
+        }
+        String convert(String a){
+            int leng = a.length();
+            if ( a.charAt(2) != '/' ){
+                a = '0' + a;
+                leng ++;
+            }
+            if (a.charAt(5) != '/') {
+                String tmp = "";
+                for ( int i = 0; i < leng; i++ ){
+                    if ( i == 3 ){
+                        tmp += '0';
+                    }
+                    tmp += a.charAt(i);
+                }
+                return tmp;
+            }
+            return a;
+        }
+        void proces(){
+            this.date = convert(this.date);
+            System.out.printf("B20DCCN001 %s %s %s %.2f", this.name, this.clas, this.date, this.d);
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        SV a = new SV();
+        a.input(sc);
+        a.proces();
+    }
+}

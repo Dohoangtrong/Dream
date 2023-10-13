@@ -1,0 +1,32 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static class SV {
+        public String name, id;
+        public float d1, d2, d3;
+        void input(Scanner sc) {
+            this.name = sc.nextLine();
+            this.id = sc.nextLine();
+            this.d1 = sc.nextFloat();
+            this.d2 = sc.nextFloat();
+            this.d3 = sc.nextFloat();
+        }
+        void proces(){
+            System.out.printf("%s %s %.1f", this.name, this.id, this.d1+this.d2+this.d3);
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        SV a = new SV();
+        a.input(sc);
+        a.proces();
+    }
+}

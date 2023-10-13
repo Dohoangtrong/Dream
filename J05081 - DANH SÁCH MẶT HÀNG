@@ -1,0 +1,50 @@
+package controller;
+
+import java.util.*;
+
+public class controller_users {
+
+    public static int count = 1;
+    public static class Product {
+        public int id, buy, sell;
+        public String name, unit;
+        void input(Scanner sc) {
+            this.name = sc.nextLine();
+            this.unit = sc.nextLine();
+            this.buy = sc.nextInt();
+            this.sell = sc.nextInt();
+            sc.nextLine();
+            this.id = count;
+            count++;
+        }
+    }
+    static class SortProduct implements Comparator<Product>{
+
+        @Override
+        public int compare(Product s1, Product s2) {
+            int a = s1.sell - s1.buy;
+            int b = s2.sell - s2.buy;
+            if ( a != b ) return Integer.compare(b,a);
+            return Integer.compare(s1.id,s2.id);
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+        ArrayList<Product> arr = new ArrayList<>();
+        for ( int i = 0; i < t; i++ ){
+            Product a = new Product();
+            a.input(sc);
+            arr.add(a);
+        }
+        arr.sort( new SortProduct() );
+
+        for ( Product x : arr ){
+            if ( x.id < 10 ) System.out.print("MH00"+x.id);
+            else  System.out.print("MH0"+x.id);
+            System.out.println(" " + x.name + " " + x.unit + " " + x.buy + " " + x.sell + " " + (x.sell- x.buy));
+        }
+    }
+}

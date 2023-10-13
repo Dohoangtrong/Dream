@@ -1,0 +1,45 @@
+package controller;
+
+import java.util.*;
+
+public class controller_users {
+
+    public static class Time {
+        public int h, m, s;
+        void input(Scanner sc) {
+            this.h = sc.nextInt();
+            this.m = sc.nextInt();
+            this.s = sc.nextInt();
+        }
+    }
+    static class Sort_time implements Comparator<Time>{
+
+        @Override
+        public int compare(Time o1, Time o2) {
+            if (o1.h != o2.h) {
+                return Integer.compare(o1.h, o2.h);
+            }else if ( o1.m != o2.m ){
+                return Integer.compare(o1.m, o2.m);
+            }else if ( o1.s != o2.s ){
+                return Integer.compare(o1.s, o2.s);
+            }
+            return 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        ArrayList<Time> arr = new ArrayList<>();
+        for ( int i = 0; i < t; i++ ){
+            Time a = new Time();
+            a.input(sc);
+            arr.add(a);
+        }
+        arr.sort( new Sort_time() );
+
+        for ( Time time : arr ){
+            System.out.println(time.h + " " + time.m + " " + time.s);
+        }
+    }
+}

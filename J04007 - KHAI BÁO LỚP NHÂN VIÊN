@@ -1,0 +1,52 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static class SV {
+        public String name, gender, date, adress, fax, day;
+        void input(Scanner sc) {
+            this.name = sc.nextLine();
+            this.gender = sc.nextLine();
+            this.date = sc.nextLine();
+            this.adress = sc.nextLine();
+            this.fax = sc.nextLine();
+            this.day = sc.nextLine();
+        }
+        String convert(String a){
+            int leng = a.length();
+            if ( a.charAt(2) != '/' ){
+                a = '0' + a;
+                leng ++;
+            }
+            if (a.charAt(5) != '/') {
+                String tmp = "";
+                for ( int i = 0; i < leng; i++ ){
+                    if ( i == 3 ){
+                        tmp += '0';
+                    }
+                    tmp += a.charAt(i);
+                }
+                return tmp;
+            }
+            return a;
+        }
+        void proces(){
+            this.date = convert(this.date);
+            this.day = convert(this.day);
+            System.out.printf("00001 %s %s %s %s %s %s", this.name, this.gender, this.date, this.adress, this.fax, this.day);
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        SV a = new SV();
+        a.input(sc);
+        a.proces();
+    }
+}

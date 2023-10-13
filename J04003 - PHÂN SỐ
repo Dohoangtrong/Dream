@@ -1,0 +1,38 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static class PS {
+        public long tu, mau;
+
+        public PS() {
+            tu = 0;
+            mau = 1;
+        }
+        void input(Scanner sc) {
+            this.tu = sc.nextLong();
+            this.mau = sc.nextLong();
+        }
+        long ucln(long a, long b){
+            if ( b == 0 ) return a;
+            return ucln( b , a % b );
+        }
+        void proces(){
+            long uc = ucln(this.tu,this.mau);
+            System.out.print( this.tu/uc + "/" + this.mau/uc);
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        PS a = new PS();
+        a.input(sc);
+        a.proces();
+    }
+}

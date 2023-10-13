@@ -1,0 +1,49 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static class PS {
+        public long tu, mau;
+
+        public PS() {
+            tu = 0;
+            mau = 1;
+        }
+        void input(Scanner sc) {
+            this.tu = sc.nextLong();
+            this.mau = sc.nextLong();
+        }
+        long ucln(long a, long b){
+            if ( b == 0 ) return a;
+            return ucln( b , a % b );
+        }
+        PS sum(PS a, PS b){
+            PS c = new PS();
+            c.tu = a.tu * b.mau + a.mau * b.tu;
+            c.mau = a.mau * b.mau;
+            long uc = ucln(c.tu,c.mau);
+            c.tu /= uc;
+            c. mau /= uc;
+            return c;
+        }
+        void proces(PS a){
+            PS res = sum(this, a );
+            System.out.print(res.tu + "/" + res.mau);
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        PS a = new PS();
+        PS b = new PS();
+        b.input(sc);
+        a.input(sc);
+        a.proces(b);
+    }
+}

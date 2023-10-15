@@ -1,0 +1,23 @@
+package VC;
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class ABC{
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner in = new Scanner(new File("DATA.in") );
+        int a[] = new int[1000];
+        while(in.hasNextInt()){
+            a[in.nextInt()]++;
+        }
+        for ( int i = 0; i < 1000; i++ ){
+            if ( a[i] > 0 ){
+                System.out.println(i + " " + a[i]);
+            }
+        }
+    }
+}

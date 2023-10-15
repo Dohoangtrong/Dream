@@ -1,0 +1,50 @@
+GG/Student.java
+package GG;
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Student {
+    public static int cnt = 1;
+    private String name, id, date, clas;
+    private double gpa;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    public Student(String name, String clas, String date, Double gpa) throws ParseException {
+        this.id = String.format("B20DCCN%03d", cnt);
+        cnt++;
+        this.name = name;
+        this.clas = clas;
+        Date a = sdf.parse(date);
+        this.date = sdf.format(a);
+        this.gpa = gpa;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + clas + " " + date + " " + String.format("%.2f",gpa);
+    }
+}
+
+GG/Test.java
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Test {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner sc = new Scanner(new File("SV.in"));
+        ArrayList<Student> arr = new ArrayList<>();
+        int n = Integer.parseInt(sc.nextLine());
+        for(int i = 0; i < n; ++i){
+            Student a = new Student(sc.nextLine(), sc.nextLine(), sc.nextLine(), Double.parseDouble(sc.nextLine()));
+            arr.add(a);
+        }
+        for(Student i : arr)System.out.println(i);
+    }
+}

@@ -1,0 +1,28 @@
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Test {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner sc = new Scanner(new File("DATA.in"));
+        String x = sc.nextLine();
+        ArrayList<String> r = new ArrayList<>();
+        while( x.compareTo("END") != 0 ){
+            x = x.toLowerCase().trim();
+            String arr[] = x.split("\\s+");
+            String res = "";
+            for ( int i = 0; i < arr.length; i++ ){
+                res = res + arr[i].substring(0,1).toUpperCase() + arr[i].substring(1) + " ";
+            }
+            r.add(res);
+            x = sc.nextLine();
+        }
+        for ( String tmp : r ){
+            System.out.println(tmp);
+        }
+    }
+}

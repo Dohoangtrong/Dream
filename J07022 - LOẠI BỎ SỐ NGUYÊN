@@ -1,0 +1,26 @@
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Test {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner sc = new Scanner(new File("DATA.in"));
+        ArrayList<String> arr = new ArrayList<>();
+        while(sc.hasNext()){
+            String a = sc.next();
+            try{
+                int x = Integer.parseInt(a);
+            }catch ( NumberFormatException ex ){
+                arr.add(a);
+            }
+        }
+        arr.sort(null);
+        for ( String x : arr ){
+            System.out.print(x + " ");
+        }
+    }
+}

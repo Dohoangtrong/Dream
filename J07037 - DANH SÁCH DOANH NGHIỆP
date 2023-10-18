@@ -1,0 +1,49 @@
+GG/Company.java
+package GG;
+
+
+import java.text.ParseException;
+import java.util.Comparator;
+
+public class Company {
+    private String name, id, sv;
+    public Company(String id, String name, String sv) throws ParseException {
+        this.id = id;
+        this.name = name;
+        this.sv = sv;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + sv;
+    }
+
+    static class Ss implements Comparator<Company>{
+        public int compare (Company a, Company b ){
+            return a.id.compareTo(b.id);
+        }
+    }
+}
+
+GG/Test.java
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
+        Scanner sc = new Scanner(new File("DN.in"));
+        ArrayList<Company> arr = new ArrayList<>();
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            Company x = new Company(sc.nextLine(),sc.nextLine(),sc.nextLine());
+            arr.add(x);
+        }
+        arr.sort( new Company.Ss() );
+        for ( Company x : arr ){
+            System.out.println(x);
+        }
+    }
+}

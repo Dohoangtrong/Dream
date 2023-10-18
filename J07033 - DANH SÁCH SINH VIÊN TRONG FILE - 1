@@ -1,0 +1,62 @@
+GG/Student.java
+package GG;
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class Student {
+    private String name, id, clas, email;
+    public Student(String id, String name, String clas, String email) throws ParseException {
+        this.id = id;
+        this.name = process(name);
+        this.clas = clas;
+        this.email = email;
+    }
+
+    String process ( String x ){
+        x = x.toLowerCase().trim();
+        String arr[] = x.split("\\s+");
+        String res = "";
+        for ( int i = 0; i < arr.length; i++ ){
+            res = res + arr[i].substring(0,1).toUpperCase() + arr[i].substring(1) + " ";
+        }
+        return res;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + name + " " + clas + " " + email;
+    }
+
+    static class Ss implements Comparator<Student>{
+        public int compare ( Student a, Student b ){
+            return a.id.compareTo(b.id);
+        }
+    }
+}
+
+GG/Test.java
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) throws IOException, ClassNotFoundException, ParseException {
+        Scanner sc = new Scanner(new File("SINHVIEN.in"));
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            Student x = new Student(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine());
+            arr.add(x);
+        }
+        arr.sort( new Student.Ss() );
+        for ( Student x : arr ){
+            System.out.println(x);
+        }
+    }
+}

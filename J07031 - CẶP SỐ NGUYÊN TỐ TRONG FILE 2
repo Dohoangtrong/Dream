@@ -1,0 +1,40 @@
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static int snt[] = new int[1000005];
+    public static void eratos(){
+        snt[0] = snt[1] = 1;
+        for ( int i = 2; i <= 10001; i++ ){
+            if ( snt[i] == 0 ){
+                for ( int j = i * i; j < 1000005; j += i ){
+                    snt[j] = 1;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        eratos();
+        ObjectInputStream ois = new ObjectInputStream( new FileInputStream("DATA1.in") );
+        ArrayList<Integer> arr1 = (ArrayList<Integer>)ois.readObject();
+        ObjectInputStream oIs = new ObjectInputStream( new FileInputStream("DATA2.in") );
+        ArrayList<Integer> arr2 = (ArrayList<Integer>)oIs.readObject();
+        Set<Integer> set1 = new TreeSet<>();
+        Set<Integer> set2 = new HashSet<>();
+        for ( Integer x : arr1 ){
+            if ( snt[x] == 0 ) set1.add(x);
+        }
+        for ( Integer x : arr2 ){
+            if ( snt[x] == 0 ) set2.add(x);
+        }
+        for( Integer x : set1){
+            if(x < 500000 && set1.contains(1000000-x) && !set2.contains(x) && !set2.contains(1000000-x) ){
+                System.out.println(x+" "+(1000000-x));
+            }
+        }
+    }
+}

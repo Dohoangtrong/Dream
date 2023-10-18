@@ -1,0 +1,44 @@
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+
+    public static boolean check(int x){
+        String res = String.valueOf(x);
+        int l = res.length();
+        if ( l % 2 == 0 || l == 1) return false;
+        for ( int i = 0; i < l; i++ ){
+            if ( ( res.charAt(i) - '0' ) % 2 == 0 || res.charAt(i) != res.charAt(l-1-i) ) return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream( new FileInputStream("DATA1.in") );
+        ArrayList<Integer> arr1 = (ArrayList<Integer>)ois.readObject();
+        ObjectInputStream oIs = new ObjectInputStream( new FileInputStream("DATA2.in") );
+        ArrayList<Integer> arr2 = (ArrayList<Integer>)oIs.readObject();
+        Set<Integer> set1 = new TreeSet<>();
+        Set<Integer> set2 = new HashSet<>();
+        int res[] = new int[1000005];
+        for ( Integer x : arr1 ){
+            res[x]++;
+            set1.add(x);
+        }
+        for ( Integer x : arr2 ){
+            res[x]++;
+            set2.add(x);
+        }
+        int cnt = 0;
+        for( Integer x : set1){
+            if( check(x) == true && set1.contains(x) && set2.contains(x) ){
+                System.out.println(x + " " + res[x] );
+                cnt++;
+            }
+            if ( cnt == 10 ) break;
+        }
+    }
+}

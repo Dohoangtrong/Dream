@@ -1,0 +1,41 @@
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.math.BigInteger;
+import java.util.*;
+
+public class Xau_Nhi_Phan_Doi_Xung_Do_Dai_Chan {
+
+    public static String rever(String x){
+        String re = "";
+        for ( int i = x.length() - 1; i >= 0; i -- ){
+            re += x.charAt(i);
+        }
+        return re;
+    }
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt() / 2;
+            Queue<String> q = new LinkedList<>();
+            ArrayList<String> arr = new ArrayList<>();
+            q.add("0");
+            q.add("1");
+            while(!q.isEmpty()){
+                String x = q.poll();
+                arr.add(x);
+                if ( x.length() < n ){
+                    q.add(x+"0");
+                    q.add(x+"1");
+                }
+            }
+            for ( String x : arr ){
+                System.out.print(x + rever(x) + " ");
+            }
+            System.out.println();
+        }
+    }
+}

@@ -31,6 +31,7 @@ public class ClientTCP {
 
             System.out.println("FROM SERVER: " + sentence_from_server);
 
+            // Nếu input là x thì sẽ ngắt kết nối webSocket ở cả Client và Server
             if ( sentence_to_server.equals("x") ){
                 clientSocket.close();
                 break;

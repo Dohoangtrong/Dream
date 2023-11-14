@@ -1,0 +1,89 @@
+GG/Student.java
+package GG;
+
+import java.util.Comparator;
+
+public class Student {
+    private String name, id;
+    private double res, plus;
+    public Student(String id, String name, double math, double sci, double chem){
+        this.id = id;
+        this.name = chuanHoa(name);
+        this.plus = proces(this.id);
+        this.res = math * 2 + sci + chem + plus;
+    }
+
+    public double getRes() {
+        return res;
+    }
+
+    void convert(double a){
+        if ( a - (int) a == 0.0f ){
+            System.out.printf("%.0f ", a);
+        }else System.out.printf("%.1f ", a);
+    }
+
+    Double proces(String i){
+        String str = i.substring(0,3);
+        if ( str.compareTo("KV1") == 0 ) return 0.5;
+        if ( str.compareTo("KV2") == 0 ) return 1.0;
+        return 2.5;
+    }
+
+    void output(){
+        System.out.print(this.id + " " + this.name + " ");
+        convert(plus);
+        convert(res);
+    }
+
+    static class Ss implements Comparator<Student>{
+        public int compare(Student a, Student b){
+            if ( a.res == b.res ) return a.id.compareTo(b.id);
+            if ( b.res > a.res ) return 1;
+            return -1;
+        }
+    }
+
+    String chuanHoa ( String x ){
+        x = x.toLowerCase().trim();
+        String arr[] = x.split("\\s+");
+        String res = "";
+        for ( int i = 0; i < arr.length; i++ ){
+            res = res + arr[i].substring(0,1).toUpperCase() + arr[i].substring(1) + " ";
+        }
+        return res;
+    }
+
+}
+
+GG/Test.java
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) throws IOException, ParseException {
+        Scanner sc = new Scanner(new File("THISINH.in"));
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            arr.add( new Student( sc.nextLine(), sc.nextLine(), sc.nextDouble(), sc.nextDouble(), sc.nextDouble()));
+        }
+        arr.sort( new Student.Ss() );
+        int stt = sc.nextInt();
+        double diem = arr.get(stt-1).getRes();
+        System.out.println(diem);
+        for ( Student x : arr ){
+            if ( x.getRes() >= diem ){
+                x.output();
+                System.out.print("TRUNG TUYEN\n");
+            }else{
+                x.output();
+                System.out.print("TRUOT\n");
+            }
+        }
+    }
+}

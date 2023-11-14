@@ -1,0 +1,52 @@
+GG/SanPham.java
+package GG;
+
+import java.util.Comparator;
+public class SanPham {
+    static int cnt = 1;
+    public String name, type, id;
+    public double income;
+    public SanPham(String name, String type, double buy, double sell){
+        this.id = String.format("MH%02d", cnt);
+        cnt++;
+        this.name = name;
+        this.income = sell - buy;
+        this.type = type;
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + name + " " + type + " " + String.format("%.2f",income);
+    }
+
+    static class Ss implements Comparator<SanPham>{
+        public int compare(SanPham a, SanPham b){
+            if ( a.income < b.income ) return 1;
+            else if ( a.income == b.income ) return 0;
+            return -1;
+        }
+    }
+}
+
+GG/Test.java
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) throws IOException, ParseException {
+        ArrayList<SanPham> ds = new ArrayList<>();
+        Scanner sc = new Scanner(new File("MATHANG.in"));
+        int n = Integer.parseInt(sc.nextLine());
+        while(n-->0){
+            ds.add(new SanPham(sc.nextLine(),sc.nextLine(),sc.nextDouble(),sc.nextDouble()));
+            sc.nextLine();
+        }
+        ds.sort( new SanPham.Ss() );
+        for(SanPham tmp : ds){
+            System.out.println(tmp);
+        }
+    }
+}

@@ -1,0 +1,51 @@
+GG/SanPham.java
+package GG;
+
+import java.util.Comparator;
+
+
+public class SanPham {
+    private String id, ten;
+    private int giaBan, baoHanh;
+    public SanPham(String id, String name, int giaBan, int baoHanh){
+        this.id = id;
+        this.ten = name;
+        this.giaBan = giaBan;
+        this.baoHanh = baoHanh;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + ten + " " + giaBan + " " + baoHanh;
+    }
+
+    static class Ss implements Comparator<SanPham>{
+        public int compare (SanPham a, SanPham b ){
+            if ( a.giaBan == b.giaBan ) return a.id.compareTo(b.id);
+            return b.giaBan - a.giaBan;
+        }
+    }
+}
+
+GG/Test.java
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) throws IOException, ParseException {
+        ArrayList<SanPham> ds = new ArrayList<>();
+        Scanner sc = new Scanner(new File("SANPHAM.in"));
+        int n = Integer.parseInt(sc.nextLine());
+        while(n-->0){
+            ds.add(new SanPham(sc.nextLine(),sc.nextLine(),sc.nextInt(),sc.nextInt()));
+            sc.nextLine();
+        }
+        ds.sort( new SanPham.Ss() );
+        for(SanPham tmp : ds){
+            System.out.println(tmp);
+        }
+    }
+}

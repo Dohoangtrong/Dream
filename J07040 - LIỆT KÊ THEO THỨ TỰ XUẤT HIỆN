@@ -1,0 +1,28 @@
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream( new FileInputStream("NHIPHAN.in") );
+        ArrayList<String> arr = (ArrayList<String>)ois.readObject();
+        Set<String> s1 = new LinkedHashSet<>();
+        for(String x : arr ){
+            String[] s = x.split(" ");
+            for(int j = 0; j < s.length; ++j) s1.add(s[j].toLowerCase());
+        }
+        Scanner sc = new Scanner(new File("VANBAN.in"));
+        Set<String> s2 = new LinkedHashSet<>();
+        Set<String> res = new LinkedHashSet<>();
+        while(sc.hasNextLine()){
+            String[] s = sc.next().split(" ");
+            for(int j = 0; j < s.length; ++j) s2.add(s[j].toLowerCase());
+        }
+        for(String i : s2)
+            if(s1.contains(i))res.add(i);
+        for(String i : res)
+            System.out.println(i);
+    }
+}

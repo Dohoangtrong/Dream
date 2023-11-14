@@ -1,0 +1,76 @@
+GG/KhachHang.java
+package GG;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class KhachHang {
+    static int cnt = 1;
+    public String ten, phong, id;
+    public int soNgay, tien;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    public KhachHang(String ten, String phong, String den, String di, int gia) throws ParseException {
+        this.id = String.format("KH%02d", cnt);
+        cnt++;
+        this.ten = chuanHoa(ten);
+        this.phong = phong;
+        Date a = sdf.parse(den);
+        Date b = sdf.parse(di);
+        this.soNgay = (int) ( ( b.getTime() - a.getTime() ) / ( 24 * 60 * 60 * 1000 ) ) + 1;
+        int donGia = proc(phong);
+        this.tien = donGia * soNgay + gia;
+    }
+
+    int proc(String x){
+        if ( x.charAt(0) == '1' ) return 25;
+        if ( x.charAt(0) == '2' ) return 34;
+        if ( x.charAt(0) == '3' ) return 50;
+        return 80;
+    }
+
+    String chuanHoa ( String x ){
+        x = x.toLowerCase().trim();
+        String arr[] = x.split("\\s+");
+        String res = "";
+        for ( int i = 0; i < arr.length; i++ ){
+            res = res + arr[i].substring(0,1).toUpperCase() + arr[i].substring(1) + " ";
+        }
+        return res;
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + ten + " " + phong + " " + soNgay + " " + tien;
+    }
+
+    static class Ss implements Comparator<KhachHang>{
+        public int compare(KhachHang a, KhachHang b){
+            return b.tien - a.tien;
+        }
+    }
+}
+
+GG/Test.java
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) throws IOException, ParseException {
+        Scanner sc = new Scanner(new File("KHACHHANG.in"));
+        ArrayList<KhachHang> arr = new ArrayList<>();
+        int n = sc.nextInt();
+        while(n-->0){
+            sc.nextLine();
+            arr.add(new KhachHang(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextInt()));
+        }
+        arr.sort( new KhachHang.Ss() );
+        for(KhachHang tmp : arr){
+            System.out.println(tmp);
+        }
+    }
+}

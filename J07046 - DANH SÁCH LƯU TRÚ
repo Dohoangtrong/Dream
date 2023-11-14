@@ -1,0 +1,57 @@
+GG/DichVu.java
+package GG;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class DichVu {
+    static int cnt = 1;
+    private String id, ten, maPhong;
+    private long ngay;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    public DichVu(String name, String maPhong, String den, String di) throws ParseException {
+        this.id = String.format("KH%02d", cnt);
+        cnt++;
+        this.ten = name;
+        this.maPhong = maPhong;
+        Date a = sdf.parse(den);
+        Date b = sdf.parse(di);
+        long res = ( b.getTime() - a.getTime() ) / ( 24 * 60 * 60 * 1000 );
+        this.ngay = res;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + ten + " " + maPhong + " " + ngay;
+    }
+
+    static class Ss implements Comparator<DichVu>{
+        public int compare (DichVu a, DichVu b ){
+            return (int) ( b.ngay - a.ngay );
+        }
+    }
+}
+
+GG/Test.java
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) throws IOException, ParseException {
+        ArrayList<DichVu> ds = new ArrayList<>();
+        Scanner sc = new Scanner(new File("KHACH.in"));
+        int n = Integer.parseInt(sc.nextLine());
+        while(n-->0){
+            ds.add(new DichVu(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine()));
+        }
+        ds.sort( new DichVu.Ss() );
+        for(DichVu tmp : ds){
+            System.out.println(tmp);
+        }
+    }
+}

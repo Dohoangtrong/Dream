@@ -1,0 +1,73 @@
+GG/LoaiPhong.java
+package GG;
+
+import java.util.Comparator;
+
+public class LoaiPhong implements Comparable<LoaiPhong>{
+    private String name, res;
+    public LoaiPhong(String str){
+        this.res = str;
+        this.name = proc(str);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    String proc(String x){
+        String arr[] = x.split("\\s+");
+        return arr[1];
+    }
+
+    @Override
+    public String toString() {
+        return res;
+    }
+
+    @Override
+    public int compareTo(LoaiPhong b){
+        return this.name.compareTo(b.getName());
+    }
+
+    static class Ss implements Comparator<LoaiPhong>{
+        public int compare (LoaiPhong a, LoaiPhong b ){
+            return a.name.compareTo(b.name);
+        }
+    }
+}
+
+
+GG/Test.java
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Test {
+    public static void main(String[] args) throws IOException {
+        ArrayList<LoaiPhong> ds = new ArrayList<>();
+        Scanner in = new Scanner(new File("PHONG.in"));
+        int n = Integer.parseInt(in.nextLine());
+        while(n-->0){
+            ds.add(new LoaiPhong(in.nextLine()));
+        }
+        Collections.sort(ds);
+        for(LoaiPhong tmp : ds){
+            System.out.println(tmp);
+        }
+    }
+    public static void main4087188(String[] args) throws IOException{
+        ArrayList<LoaiPhong> ds = new ArrayList<>();
+        Scanner in = new Scanner(new File("PHONG.in"));
+        int n = Integer.parseInt(in.nextLine());
+        while(n-->0){
+            ds.add(new LoaiPhong(in.nextLine()));
+        }
+        Collections.sort(ds);
+        for(LoaiPhong tmp : ds){
+            System.out.println(tmp);
+        }
+    }
+}
+

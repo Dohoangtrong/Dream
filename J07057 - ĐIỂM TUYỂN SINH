@@ -1,0 +1,75 @@
+GG/Main.java
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        Scanner sc = new Scanner(new File("THISINH.in"));
+        int t = sc.nextInt();
+        sc.nextLine();
+        ArrayList<Student> lst = new ArrayList<>();
+        for(int i = 1; i <= t; ++i){
+            Student a = new Student(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine());
+            lst.add(a);
+        }
+        lst.sort( new Student.Ss() );
+        for(Student i : lst)System.out.println(i);
+    }
+}
+
+GG/Student.java
+package GG;
+
+import java.util.Comparator;
+
+public class Student {
+    static int cnt = 1;
+    private String id, name, trangThai;
+    private double tong;
+    public Student(String name, String diem, String tonGiao, String khuVuc){
+        this.name = convert(name);
+        this.id = String.format("TS%02d", cnt);
+        cnt++;
+        double uuTien = tinhUuTien(tonGiao,khuVuc);
+        this.tong = Double.parseDouble(diem) + uuTien;
+        if ( tong >= 20.5 ) this.trangThai = "Do";
+        else this.trangThai = "Truot";
+    }
+
+    double tinhUuTien(String tonGiao, String khuVuc){
+        double res = 0;
+        if ( !tonGiao.equals("Kinh") ) res += 1.5;
+        if ( khuVuc.equals("1") ) res += 1.5;
+        else if ( khuVuc.equals("2") ) res += 1;
+        return res;
+    }
+
+    String convert(String x){
+        x = x.toLowerCase().trim();
+        String arr[] = x.split("\\s+");
+        int l = arr.length;
+        String res = "";
+        for ( int i = 0; i < l; i ++ ){
+            res = res + arr[i].substring(0,1).toUpperCase() + arr[i].substring(1) + " ";
+        }
+        return res.trim();
+    }
+
+    static class Ss implements Comparator<Student>{
+        public int compare(Student a, Student b){
+            if ( a.tong == b.tong ) return a.id.compareTo(b.id);
+            return b.tong > a.tong ? 1 : -1;
+        }
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + name + " " + tong + " " + trangThai;
+    }
+}
+

@@ -1,0 +1,85 @@
+GG/CaThi.java
+package GG;
+
+import java.text.ParseException;
+import java.util.Comparator;
+
+
+public class CaThi {
+    static int cnt = 1;
+    private String id, ngay, thoiGian, ma;
+    public CaThi(String ngay, String thoiGian, String ma){
+        this.ngay = ngay;
+        this.id = String.format("C%03d", cnt);
+        cnt++;
+        this.thoiGian = thoiGian;
+        this.ma = ma;
+    }
+
+    public static int compareNgay(String a, String b){
+        int day1 = Integer.parseInt(a.substring(0,2));
+        int day2 = Integer.parseInt(b.substring(0,2));
+        int thang1 = Integer.parseInt(a.substring(3,5));
+        int thang2 = Integer.parseInt(b.substring(3,5));
+        int nam1 = Integer.parseInt(a.substring(6));
+        int nam2 = Integer.parseInt(b.substring(6));
+        if ( nam1 == nam2 ){
+            if ( thang1 == thang2) return day1 - day2;
+            else return thang1 - thang2;
+        }
+        return nam1 - nam2;
+    }
+
+    static int compareTime(String a, String b){
+        int gio1 = Integer.parseInt(a.substring(0,2));
+        int gio2 = Integer.parseInt(b.substring(0,2));
+        int phut1 = Integer.parseInt(a.substring(3));
+        int phut2 = Integer.parseInt(b.substring(3));
+        if ( gio1 == gio2 ){
+            return phut1 - phut2;
+        }
+        return gio1 - gio2;
+    }
+
+    static class Ss implements Comparator<CaThi>{
+        public int compare(CaThi a, CaThi b){
+            int tmp = compareNgay(a.ngay,b.ngay);
+            if ( tmp == 0 ){
+                tmp = compareTime(a.thoiGian,b.thoiGian);
+                if ( tmp == 0 ) return a.id.compareTo(b.id);
+                return tmp;
+            }
+            return tmp;
+        }
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + ngay + " " + thoiGian + " " + ma;
+    }
+}
+
+GG/Main.java
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        Scanner sc = new Scanner(new File("CATHI.in"));
+        int t = sc.nextInt();
+        sc.nextLine();
+        ArrayList<CaThi> lst = new ArrayList<>();
+        for(int i = 1; i <= t; ++i){
+            CaThi a = new CaThi(sc.nextLine(),sc.nextLine(),sc.nextLine());
+            lst.add(a);
+        }
+        lst.sort( new CaThi.Ss() );
+        for(CaThi i : lst)System.out.println(i);
+    }
+}
+

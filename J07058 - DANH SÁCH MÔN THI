@@ -1,0 +1,50 @@
+GG/Main.java
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        Scanner sc = new Scanner(new File("MONHOC.in"));
+        int t = sc.nextInt();
+        sc.nextLine();
+        ArrayList<MonHoc> lst = new ArrayList<>();
+        for(int i = 1; i <= t; ++i){
+            MonHoc a = new MonHoc(sc.nextLine(), sc.nextLine(), sc.nextLine() );
+            lst.add(a);
+        }
+        lst.sort( new MonHoc.Ss() );
+        for(MonHoc i : lst)System.out.println(i);
+    }
+}
+
+GG/MonHoc.java
+package GG;
+
+import java.util.Comparator;
+
+public class MonHoc{
+    private String id, name, type;
+    public MonHoc(String id, String name, String type){
+        this.name = name;
+        this.type = type;
+        this.id = id;
+    }
+
+    static class Ss implements Comparator<MonHoc>{
+        public int compare(MonHoc a, MonHoc b){
+            return a.id.compareTo(b.id);
+        }
+    }
+
+    @Override
+    public String toString(){
+        return String.format("%s %s %s", id, name, type);
+    }
+}
+

@@ -1,0 +1,72 @@
+GG/Main.java
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        Scanner sc = new Scanner(new File("BANGDIEM.in"));
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i++ ){
+            sc.nextLine();
+            arr.add( new Student( sc.nextLine(), sc.nextDouble(), sc.nextDouble(), sc.nextDouble() ) );
+        }
+        arr.sort(new Student.Ss());
+        for ( Student x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+GG/Student.java
+package GG;
+
+import java.util.Comparator;
+
+public class Student {
+    static int cnt = 1;
+    private String id, ten, xepHang;
+    private double avg;
+    public Student(String ten, double d1, double d2, double d3){
+        this.id = String.format("SV%02d", cnt);
+        cnt++;
+        this.ten = convert(ten);
+        this.avg = d1 * 0.25 + d2 * 0.35 + d3 * 0.4;
+        this.xepHang = tinhXepHang(this.avg);
+    }
+
+    String tinhXepHang(double x){
+        if ( x >= 8 ) return "GIOI";
+        if ( x >= 6.5 && x < 8 ) return "KHA";
+        if ( x >= 5 && x < 6.5 ) return "TRUNG BINH";
+        return "KEM";
+    }
+
+    String convert ( String x ){
+        x = x.toLowerCase().trim();
+        String arr[] = x.split("\\s+");
+        String res = "";
+        for ( int i = 0; i < arr.length; i++ ){
+            res = res + arr[i].substring(0,1).toUpperCase() + arr[i].substring(1) + " ";
+        }
+        return res;
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + ten + " " + String.format("%.2f",avg) + " " + xepHang;
+    }
+
+    static class Ss implements Comparator<Student>{
+        public int compare(Student a, Student b){
+            return a.avg > b.avg ? -1 : 1;
+        }
+    }
+
+}
+

@@ -1,0 +1,57 @@
+GG/Main.java
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
+        Scanner sc = new Scanner(new File("DANHSACH.in"));
+        ArrayList<Student> arr = new ArrayList<>();
+        while (sc.hasNextLine()){
+            String x = sc.nextLine();
+            x = x.trim().toLowerCase();
+            String b[] = x.split("\\s+");
+            String res = "";
+            for ( int i = 0; i < b.length-1; i++ ){
+                res += b[i].substring(0,1).toUpperCase() + b[i].substring(1) + " ";
+            }
+            String ten = b[b.length-1].substring(0,1).toUpperCase() + b[b.length-1].substring(1);
+            arr.add( new Student(res, ten) );
+        }
+        arr.sort(new Student.Ss());
+        for ( Student x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+GG/Student.java
+package GG;
+
+import java.util.Comparator;
+
+public class Student {
+    private String ho, ten;
+    public Student(String ho, String ten){
+        this.ho = ho;
+        this.ten = ten;
+    }
+
+    @Override
+    public String toString(){
+        return ho + ten;
+    }
+
+    static class Ss implements Comparator<Student>{
+        public int compare(Student a, Student b){
+            if ( a.ten.equals(b.ten) ) return a.ho.compareTo(b.ho);
+            return a.ten.compareTo(b.ten);
+        }
+    }
+
+}
+

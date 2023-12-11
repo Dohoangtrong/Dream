@@ -1,0 +1,61 @@
+GG/Main.java
+package GG;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner sc = new Scanner(new File("MONHOC.in"));
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<MonHoc> arr = new ArrayList<>();
+        while(t-->0){
+            MonHoc x = new MonHoc( sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine() );
+            arr.add(x);
+        }
+        arr.sort( new MonHoc.Ss() );
+        for ( MonHoc x : arr ){
+            if ( x.getTh().equals("Truc tuyen") || x.getTh().contains(".ptit.edu.vn") == true ) {
+                System.out.println(x);
+            }
+        }
+    }
+}
+
+GG/MonHoc.java
+package GG;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class MonHoc {
+    private String ten, ma, tinChi, lt, th;
+    public MonHoc(String ma, String ten, String tinChi, String lt, String th){
+        this.ma = ma;
+        this.ten = ten;
+        this.tinChi = tinChi;
+        this.lt = lt;
+        this.th = th;
+    }
+
+    public String getTh() {
+        return th;
+    }
+
+    @Override
+    public String toString(){
+        return ma + " " + ten + " " + tinChi + " " + lt + " " + th;
+    }
+
+    static class Ss implements Comparator<MonHoc>{
+        public int compare(MonHoc a, MonHoc b){
+            return a.ma.compareTo(b.ma);
+        }
+    }
+}
+

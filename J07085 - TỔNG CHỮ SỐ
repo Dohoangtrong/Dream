@@ -1,0 +1,34 @@
+package GG;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static int proces(String x){
+        int l = x.length();
+        int res = 0;
+        for ( int i = 0; i < l; i++ ){
+            res += x.charAt(i) - '0';
+        }
+        return res;
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ObjectInputStream ois = new ObjectInputStream( new FileInputStream("DATA.in"));
+        ArrayList<String> arr = (ArrayList<String>)ois.readObject();
+        for ( String x : arr ){
+            String res = "";
+            int l = x.length();
+            for ( int i = 0; i < l; i++ ){
+                if ( x.charAt(i) <= '9' && x.charAt(i) >= 0 ){
+                    if ( x.charAt(i) == '0' && res == "" ) continue;
+                        res += x.charAt(i);
+                }
+            }
+            int k = proces(res);
+            System.out.println(res + " " + k);
+        }
+    }
+}

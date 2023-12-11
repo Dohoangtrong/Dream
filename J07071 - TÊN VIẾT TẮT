@@ -1,0 +1,78 @@
+GG/GiangVien.java
+package GG;
+
+import java.util.Comparator;
+
+public class GiangVien {
+    private String ho, ten, vietTat;
+    public GiangVien(String ten){
+        String arr[] = ten.split("\\s+");
+        String res = "";
+        int l = arr.length;
+        String a = "";
+        for ( int i = 0; i < l - 1; i++ ){
+            a += arr[i].substring(0,1).toUpperCase()+'.';
+            res += arr[i] + " ";
+        }
+        this.ho = res;
+        a += arr[l-1].substring(0,1).toUpperCase();
+        this.ten = arr[l-1];
+        this.vietTat = a;
+    }
+
+    public String getVietTat() {
+        return vietTat;
+    }
+
+    @Override
+    public String toString(){
+        return ho + ten;
+    }
+
+    static class Ss implements Comparator<GiangVien>{
+        public int compare(GiangVien a, GiangVien b){
+            if ( a.ten.equals(b.ten) ) return a.ho.compareTo(b.ho);
+            return a.ten.compareTo(b.ten);
+        }
+    }
+}
+
+GG/Main.java
+package GG;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static boolean comPare(String x, String y){
+        if ( x.length() != y.length() ) return false;
+        for ( int i = 0; i < x.length(); i++ ){
+            if ( y.charAt(i) == '*' ) continue;
+            if ( x.charAt(i) != y.charAt(i) ) return false;
+        }
+        return true;
+    }
+
+
+    public static void main(String[] args) throws IOException {
+        Scanner sc = new Scanner( new File("DANHSACH.in"));
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<GiangVien> arr = new ArrayList<>();
+        while(t-->0){
+            arr.add( new GiangVien(sc.nextLine() ) );
+        }
+        t = Integer.parseInt(sc.nextLine());
+        arr.sort( new GiangVien.Ss() );
+        while(t-->0){
+            String x = sc.nextLine();
+            for ( GiangVien gv : arr ){
+                if ( comPare(gv.getVietTat(),x) == true ){
+                    System.out.println(gv);
+                }
+            }
+        }
+    }
+}
+

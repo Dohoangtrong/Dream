@@ -1,0 +1,57 @@
+GG/Main.java
+package GG;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws IOException, ParseException {
+        Scanner sc = new Scanner( new File("ONLINE.in"));
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<SinhVien> arr = new ArrayList<>();
+        while(t-->0){
+            arr.add( new SinhVien(sc.nextLine(),sc.nextLine(),sc.nextLine() ) );
+        }
+        arr.sort( new SinhVien.Ss() );
+        for ( SinhVien a : arr ){
+            System.out.println(a);
+        }
+    }
+}
+
+GG/SinhVien.java
+package GG;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class SinhVien {
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+    private String ten;
+    private long thoiGian;
+    public SinhVien(String ten, String batDau, String ketThuc) throws ParseException {
+        this.ten = ten;
+        Date st = sdf.parse(batDau);
+        Date kt = sdf.parse(ketThuc);
+        this.thoiGian = ( kt.getTime() - st.getTime() ) / ( 1000 * 60 );
+    }
+
+    @Override
+    public String toString(){
+        return ten + " " + thoiGian;
+    }
+
+    static class Ss implements Comparator<SinhVien>{
+        public int compare(SinhVien a, SinhVien b){
+            if ( a.thoiGian == b.thoiGian ){
+                return a.ten.compareTo(b.ten);
+            }
+            return b.thoiGian > a.thoiGian ? 1 : -1;
+        }
+    }
+}
+

@@ -1,0 +1,43 @@
+package controller;
+
+import java.util.*;
+
+public class controller_users {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-->0) {
+            String str = sc.next();
+            int leng = str.length();
+            Stack<Character> st = new Stack<>();
+            int check = 1;
+            for ( int i = 0; i < leng; i++ ){
+                char a = str.charAt(i);
+                if ( a =='(' || a =='[' || a =='{' ){
+                    st.push(a);
+                    continue;
+                }
+                if ( st.isEmpty() ){
+                    check = 0;
+                    break;
+                }else{
+                    char x = st.peek();
+                    if ( x == '(' && a == ')' ){
+                        st.pop();
+                    }else if ( x == '{' && a == '}' ){
+                        st.pop();
+                    }else if ( x == '[' && a == ']' ){
+                        st.pop();
+                    }else{
+                        check = 0;
+                        break;
+                    }
+
+                }
+            }
+            if ( !st.isEmpty() ) check = 0;
+            if ( check == 0 ) System.out.println("NO");
+            else System.out.println("YES");
+        }
+    }
+}

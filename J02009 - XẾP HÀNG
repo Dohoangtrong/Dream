@@ -1,0 +1,27 @@
+package GG;
+
+import java.util.Scanner;
+import java.util.TreeMap;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        TreeMap<Integer, Integer> arr = new TreeMap<>();
+        while (n-- > 0) {
+            int t = sc.nextInt();
+            int d = sc.nextInt();
+            if (arr.containsKey(t)) arr.replace(t, arr.get(t) + d);
+            else arr.put(t, d);
+        }
+        long res = 0;
+        for (Integer key : arr.keySet()) {
+            if (res == 0) res = key + arr.get(key);
+            else{
+                if ( key > res ) res = key + arr.get(key);
+                else res = res + arr.get(key);
+            }
+        }
+        System.out.println(res);
+    }
+}

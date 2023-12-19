@@ -1,0 +1,41 @@
+package controller;
+
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while (t-->0) {
+            int n = sc.nextInt();
+            int[] arr = new int[n];
+            List<Integer> v = new ArrayList<>();
+            for ( int i = 0; i < n; i++ )
+                arr[i] = sc.nextInt();
+            Stack<Integer> st = new Stack<>();
+            st.push((arr[n-1]));
+            v.add(-1);
+            for ( int i = n-2; i >= 0; i--){
+                int a = st.peek();
+                while(!st.empty()){
+                    a = st.peek();
+                    if ( a <= arr[i] ){
+                        st.pop();
+                    }else{
+                        v.add(a);
+                        st.push(arr[i]);
+                        break;
+                    }
+                }
+                if ( st.empty() ){
+                    st.push(arr[i]);
+                    v.add(-1);
+                }
+            }
+            int l = v.size();
+            for ( int i = l-1; i >= 0; i--) System.out.print( v.get(i) + " ");
+            System.out.println();
+        }
+    }
+}

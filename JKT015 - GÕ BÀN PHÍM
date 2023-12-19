@@ -1,0 +1,41 @@
+package Jo6007;
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Stack<Character> res = new Stack<>();
+        Stack<Character> tmp = new Stack<>();
+        String x = sc.nextLine();
+        for ( int i = 0; i < x.length(); i++ ){
+            char c = x.charAt(i);
+            if ( c == '-' ){
+                if ( !res.isEmpty() ) res.pop();
+            }else if ( c == '>' ){
+                if ( !tmp.isEmpty() ){
+                    res.push(tmp.peek());
+                    tmp.pop();
+                }
+            }else if ( c == '<' ){
+                if ( !res.isEmpty() ){
+                    tmp.push(res.peek());
+                    res.pop();
+                }
+            }else{
+                res.push(c);
+            }
+        }
+        StringBuilder ans = new StringBuilder("");
+        while(!res.isEmpty()){
+            ans.append(res.peek());
+            res.pop();
+        }
+        ans = ans.reverse();
+        while(!tmp.isEmpty()){
+            ans.append(tmp.peek());
+            tmp.pop();
+        }
+        System.out.print(ans);
+    }
+}

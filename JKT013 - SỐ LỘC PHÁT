@@ -1,0 +1,31 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.*;
+
+public class controller_users {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n= sc.nextInt();
+            Queue<String> q= new LinkedList<>();
+            Vector<String> A= new Vector<String>();
+            q.offer("6");
+            q.offer("8");
+            while(true){
+                String x=q.poll();
+                if(x.length()>n) break;
+                A.add(x);
+                q.offer(x+'6');
+                q.offer(x+'8');
+            }
+            System.out.println(A.size());
+            for(int i=A.size()-1;i>=0;i--){
+                System.out.printf("%s ",A.get(i));
+            }
+            System.out.printf("%n");
+        }
+    }
+}

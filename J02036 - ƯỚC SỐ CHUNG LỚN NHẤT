@@ -1,0 +1,35 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+
+    public static int ucln(int a, int b){
+        if ( b == 0 ) return a;
+        return ucln( b, a % b );
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            int arr[] = new int[n];
+            for(int i = 0;i < n;i++) arr[i] = sc.nextInt();
+            ArrayList<Integer> res = new ArrayList<>();
+            res.add(arr[0]);
+            for(int i = 1;i < n;i++){
+                int x = arr[i] * arr[i-1] / ucln ( arr[i], arr[i-1] );
+                res.add(x);
+            }
+            res.add(arr[n - 1]);
+            for(int x: res){
+                System.out.print(x + " ");
+            }
+            System.out.println();
+        }
+    }
+}

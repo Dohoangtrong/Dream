@@ -1,0 +1,25 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.*;
+
+public class controller_users {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            Queue<Integer> q = new LinkedList<>();
+            q.add(9);
+            int a = 9;
+            while( a % n != 0 ){
+                a = q.peek();
+                q.poll();
+                q.add( a * 10 );
+                q.add( a * 10 + 9 );
+            }
+            System.out.println(a);
+        }
+    }
+}

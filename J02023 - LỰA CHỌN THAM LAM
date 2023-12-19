@@ -1,0 +1,50 @@
+package GG;
+
+import java.util.Scanner;
+import java.util.TreeMap;
+
+public class Main {
+
+    public static String numMin(int n, int s){
+        String res = "";
+        int k = s / 9;
+        if ( s % 9 == 0 ) k = s / 9 - 1;
+        for ( int i = 0; i < k; i ++ ){
+            res += '9';
+        }
+        if ( n - k == 1 ) return String.valueOf(s- 9*k) + res;
+        else{
+            res = String.valueOf(s - 9*k - 1) + res;
+            for ( int i = 0; i < n - k - 2; i++ ){
+                res = '0' + res;
+            }
+            res = '1' + res;
+        }
+        return res;
+    }
+
+    public static String numMax(int n, int s){
+        String res = "";
+        int k = s / 9;
+        for ( int i = 0; i < k; i ++ ){
+            res += '9';
+        }
+        if ( k != n ) res += String.valueOf( s - 9 * k );
+        for ( int i = 0; i < n - k - 1; i++ ){
+            res += '0';
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n, S;
+        n = sc.nextInt();
+        S = sc.nextInt();
+        if ( 9 * n < S || S == 0 ){
+            System.out.println(-1 + " " + -1);
+        }else{
+            System.out.println(numMin(n,S) + " " + numMax(n,S));
+        }
+    }
+}

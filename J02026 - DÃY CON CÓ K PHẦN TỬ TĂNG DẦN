@@ -1,0 +1,40 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+    static int n, k;
+    static void Try(int arr[], int begin, int cmp, String a){
+        if ( begin == k ){
+            System.out.println(a);
+            return;
+        }
+
+        for ( int j = 0; j < n; j++){
+            if ( arr[j] > cmp ){
+                String c = String.valueOf(arr[j]) + " ";
+                Try(arr,begin+1, arr[j], a + c);
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            n = sc.nextInt();
+            k = sc.nextInt();
+            int arr[] = new int[n];
+            for ( int i = 0; i < n; i ++ ){
+                arr[i] = sc.nextInt();
+            }
+            Arrays.sort(arr);
+            Try(arr,0,0,"");
+        }
+    }
+}
+

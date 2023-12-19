@@ -1,0 +1,40 @@
+package controller;
+
+import java.util.*;
+
+public class controller_users {
+
+    static int lower_bound(int a[], int l, int r, int val) {
+        int res = r + 1;
+        while (l <= r) {
+            int m = (l + r) / 2;
+            if (a[m] >= val) {
+                res = m;
+                r = m - 1;
+            }
+            else l = m + 1;
+        }
+        return res;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            int k, x, n;
+            n = sc.nextInt();
+            k = sc.nextInt();
+            int[] arr = new int[n];
+            for ( int i = 0; i < n; i++){
+                arr[i] = sc.nextInt();
+            }
+            Arrays.sort(arr);
+            long  cnt = 0;
+            for (int i = 0; i < n; i++) {
+                x = lower_bound(arr, i + 1 , n - 1, arr[i] + k);
+                cnt += x - i - 1;
+            }
+            System.out.println(cnt);
+        }
+    }
+}

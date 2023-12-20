@@ -1,0 +1,65 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+
+    static class IntSet{
+        public int arr[];
+        IntSet(int arr[]){
+            this.arr = arr;
+        }
+        public IntSet union(IntSet a){
+            SortedSet<Integer> st = new TreeSet<>();
+            int l = this.arr.length;
+            for ( int i = 0; i < l; i ++ ){
+                st.add(this.arr[i]);
+            }
+            l = a.arr.length;
+            for ( int i = 0; i < l; i++ ){
+                st.add(a.arr[i]);
+            }
+            int b = 0;
+            int res[] = new int[st.size()];
+            for ( int x : st ){
+                res[b] = x;
+                b++;
+            }
+            return new IntSet(res);
+        }
+        @Override
+        public String toString(){
+            String res = "";
+            for(int i = 0; i < this.arr.length; i++){
+                res += String.valueOf(this.arr[i]) + " ";
+            }
+            return res;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), m = sc.nextInt(), a[] = new int[n], b[] = new int[m];
+        for(int i = 0; i<n; i++) a[i] = sc.nextInt();
+        for(int i = 0; i<m; i++) b[i] = sc.nextInt();
+        IntSet s1 = new IntSet(a);
+        IntSet s2 = new IntSet(b);
+        IntSet s3 = s1.union(s2);
+        System.out.println(s3);
+    }
+    public static void main1798670(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt(), m = sc.nextInt(), a[] = new int[n], b[] = new int[m];
+        for(int i = 0; i<n; i++) a[i] = sc.nextInt();
+        for(int i = 0; i<m; i++) b[i] = sc.nextInt();
+        IntSet s1 = new IntSet(a);
+        IntSet s2 = new IntSet(b);
+        IntSet s3 = s1.union(s2);
+        System.out.println(s3);
+    }
+}
+
+

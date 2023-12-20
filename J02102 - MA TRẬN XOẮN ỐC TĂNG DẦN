@@ -1,0 +1,39 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+
+    public static void proces ( int arr[], int n ){
+        int res[][] = new int[n][n];
+        int l = 0, r = n-1, u = 0, d = n-1, k = 0;
+        while( k < n*n ){
+            for ( int i = l; i <= r; i++ ) res[u][i] = arr[k++];
+            u++;
+            for ( int i = u; i <= d; i++ ) res[i][r] = arr[k++];
+            r--;
+            for ( int i = r; i >= l; i-- ) res[d][i] = arr[k++];
+            d--;
+            for ( int i = d; i >= u; i-- )  res[i][l] = arr[k++];
+            l++;
+        }
+        for ( int i = 0; i < n; i ++ ){
+            for ( int j = 0; j < n; j++ ){
+                System.out.print( res[i][j] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int arr[] = new int[n*n];
+        for(int i = 0; i < n*n; i++) arr[i] = sc.nextInt();
+        Arrays.sort(arr);
+        proces(arr,n);
+    }
+}

@@ -1,0 +1,28 @@
+package controller;
+import java.math.BigInteger;
+import java.util.*;
+public class controller_users {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String tmp = "";
+        char x;
+        Vector<String> res = new Vector<>();
+        while(sc.hasNext()){
+            String str = sc.next().toLowerCase();
+            int leng = str.length();
+            x = str.charAt(leng-1);
+            if ( x == '!' || x == '?' || x == '.' ){
+                tmp = tmp + str.substring(0,leng-1);
+                res.add(tmp);
+                tmp = "";
+            }else{
+                tmp = tmp + str + " ";
+            }
+        }
+        for ( String string : res ){
+            string = string.substring(0,1).toUpperCase() + string.substring(1);
+            System.out.println(string);
+        }
+    }
+}

@@ -1,0 +1,75 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+
+    static class WordSet{
+        public String str;
+        WordSet(String a){
+            this.str = a.toLowerCase();
+        }
+        public String union(WordSet tmp){
+            String[] a = this.str.split("\\s+");
+            String[] b = tmp.str.split("\\s+");
+            SortedSet<String> st = new TreeSet<>();
+            int l = a.length;
+            for ( int i = 0; i < l; i ++ ){
+                st.add(a[i]);
+            }
+            l = b.length;
+            for ( int i = 0; i < l; i++ ){
+                st.add(b[i]);
+            }
+            String res = "";
+            for ( String x : st ){
+                res += x + " ";
+            }
+            return res;
+        }
+        public String intersection(WordSet tmp){
+            String[] a = this.str.split("\\s+");
+            String[] b = tmp.str.split("\\s+");
+            Map <String, Integer> map = new TreeMap<>();
+            int l = a.length;
+            for ( int i = 0; i < l; i ++ ){
+                if ( !map.containsKey(a[i]) ){
+                    map.put(a[i],1);
+                }
+            }
+            l = b.length;
+            for ( int i = 0; i < l; i++ ){
+                if ( map.containsKey(b[i]) ){
+                    map.put(b[i],2);
+                }
+            }
+            String res = "";
+            for (Map.Entry<String, Integer> x : map.entrySet() ){
+                if ( x.getValue() == 2 ){
+                    res = res + x.getKey() + " ";
+                }
+            }
+            return res;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        WordSet s1 = new WordSet(in.nextLine());
+        WordSet s2 = new WordSet(in.nextLine());
+        System.out.println(s1.union(s2));
+        System.out.println(s1.intersection(s2));
+    }
+    public static void main9409463(String[] args) {
+        Scanner in = new Scanner(System.in);
+        WordSet s1 = new WordSet(in.nextLine());
+        WordSet s2 = new WordSet(in.nextLine());
+        System.out.println(s1.union(s2));
+        System.out.println(s1.intersection(s2));
+    }
+}
+
+

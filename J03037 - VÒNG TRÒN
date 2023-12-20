@@ -1,0 +1,31 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String str = sc.nextLine();
+        int leng = str.length();
+        int indexS[] = new int[26];
+        for ( int i = 0; i < 26; i++ ){
+            indexS[i] = -1;
+        }
+        int indexE[] = new int[26];
+        for ( int i = 0; i < 52; i++ ){
+            int a = str.charAt(i) - 'A';
+            if ( indexS[a] != -1 ) indexE[a] = i;
+            else indexS[a] = i;
+        }
+        int cnt = 0;
+        for ( int i = 0; i < 26; i++ ){
+            for ( int j = 0; j < 26; j++ )
+            if ( indexS[i] < indexS[j] && indexS[j] < indexE[i] && indexE[i] < indexE[j] ) cnt++;
+        }
+        System.out.print(cnt);
+    }
+}

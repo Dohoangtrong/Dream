@@ -1,0 +1,52 @@
+package controller;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class controller_users {
+    static int cnt = 1;
+    public static class Product {
+        public String name, type;
+        public double buy, sell, income;
+        public int id;
+        void input(Scanner sc) {
+            sc.nextLine();
+            this.name = sc.nextLine();
+            this.type = sc.nextLine();
+            this.buy += sc.nextDouble();
+            this.sell += sc.nextDouble();
+            this.income = this.sell - this.buy;
+            this.id = cnt;
+            cnt++;
+        }
+        void output(){
+            System.out.printf("%d %s %s %.2f\n",this.id, this.name, this.type, this.income);
+        }
+    }
+
+    static class Ss implements Comparator<Product>{
+        public int compare(Product a, Product b){
+            if ( a.income < b.income ) return 1;
+            else if ( a.income == b.income ) return 0;
+            return -1;
+        }
+    }
+
+    public static void main(String[] args) throws  FileNotFoundException{
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Product> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i++ ){
+            Product x = new Product();
+            x.input(sc);
+            arr.add(x);
+        }
+        arr.sort( new Ss() );
+        for ( int i = 0; i < t; i++ ){
+            arr.get(i).output();
+        }
+    }
+}

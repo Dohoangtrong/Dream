@@ -1,0 +1,20 @@
+package controller;
+import java.math.BigInteger;
+import java.util.*;
+public class controller_users {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            BigInteger n = sc.nextBigInteger();
+            BigInteger a = BigInteger.valueOf(11);
+            BigInteger tmp = n.divide(a);
+            if ( tmp.multiply(a).compareTo(n) == 0 ){
+                System.out.println(1);
+            }else{
+                System.out.println(0);
+            }
+        }
+    }
+}

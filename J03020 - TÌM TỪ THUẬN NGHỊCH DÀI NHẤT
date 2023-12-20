@@ -1,0 +1,39 @@
+package controller;
+import java.math.BigInteger;
+import java.util.*;
+public class controller_users {
+
+    public static int proces(String s){
+        int leng = s.length();
+        for ( int i = 0; i < leng/2; i++ ){
+            if ( s.charAt(i) != s.charAt(leng-1-i) ){
+                return 0;
+            }
+        }
+        return leng;
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Map<String,Integer> map = new LinkedHashMap<>();
+        int mx = 0;
+        while(sc.hasNext()){
+            String str = sc.next();
+            int b = proces(str);
+            if ( b != 0 ){
+                mx = Math.max(b,mx);
+                if ( map.containsKey(str) ){
+                    int a = map.get(str);
+                    map.put(str,a+1);
+                }else{
+                    map.put(str,1);
+                }
+            }
+        }
+        for(String x : map.keySet()){
+            if(x.length() == mx){
+                System.out.println(x + " " + map.get(x));
+            }
+        }
+    }
+}

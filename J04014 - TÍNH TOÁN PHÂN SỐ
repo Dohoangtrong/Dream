@@ -1,0 +1,64 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+    public static class PS {
+        public long tu, mau;
+        public PS() {
+            tu = 0;
+            mau = 1;
+        }
+        void input(Scanner sc) {
+            this.tu = sc.nextLong();
+            this.mau = sc.nextLong();
+        }
+        long ucln(long a, long b){
+            if ( b == 0 ) return a;
+            return ucln( b , a % b );
+        }
+        PS sum(PS a, PS b){
+            PS c = new PS();
+            c.tu = a.tu * b.mau + a.mau * b.tu;
+            c.mau = a.mau * b.mau;
+            long uc = ucln(c.tu,c.mau);
+            c.tu /= uc;
+            c. mau /= uc;
+            return c;
+        }
+        PS mul(PS a, PS b){
+            PS c = new PS();
+            c.tu = a.tu * b.tu;
+            c.mau = a.mau * b.mau;
+            long uc = ucln(c.tu,c.mau);
+            c.tu /= uc;
+            c. mau /= uc;
+            return c;
+        }
+        void proces(PS a){
+            PS res = sum(a,this);
+            res = mul(res,res);
+            System.out.print(res.tu + "/" + res.mau + " ");
+            res = mul(res,a);
+            res = mul(res,this);
+            System.out.print(res.tu + "/" + res.mau + "\n");
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            PS a = new PS();
+            PS b = new PS();
+            b.input(sc);
+            a.input(sc);
+            a.proces(b);
+        }
+    }
+}
+

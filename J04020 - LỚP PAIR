@@ -1,0 +1,70 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+
+    static class Pair<First, Second>{
+        public First f;
+        public Second s;
+        public Pair( First a, Second b ){
+            this.f = a;
+            this.s = b;
+        }
+        public boolean snt(Integer a){
+            if ( a < 2 ) return false;
+            for ( int i = 2; i * i <= a; i++ ){
+                if ( a % i == 0 ) return false;
+            }
+            return true;
+        }
+        public boolean isPrime(){
+            if ( snt((Integer) f) == true && snt((Integer) s) == true ) return true;
+            return false;
+        }
+        @Override
+        public String toString(){
+            return f + " " + s;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            boolean check = false;
+            for(int i = 2; i <= 2*Math.sqrt(n); i++){
+                Pair<Integer, Integer> p = new Pair<>(i, n-i);
+                if(p.isPrime()){
+                    System.out.println(p);
+                    check = true;
+                    break; 
+                }
+            }
+            if(!check) System.out.println(-1);
+        }
+    }
+    public static void main4964099(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            boolean check = false;
+            for(int i = 2; i <= 2*Math.sqrt(n); i++){
+                Pair<Integer, Integer> p = new Pair<>(i, n-i);
+                if(p.isPrime()){
+                    System.out.println(p);
+                    check = true;
+                    break;
+                }
+            }
+            if(!check) System.out.println(-1);
+        }
+    }
+}
+
+

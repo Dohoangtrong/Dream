@@ -1,0 +1,60 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+    public static class SoPhuc {
+        public int real, img;
+        void input(Scanner sc) {
+            this.real = sc.nextInt();
+            this.img = sc.nextInt();
+        }
+        SoPhuc sum(SoPhuc a, SoPhuc b){
+            SoPhuc res = new SoPhuc();
+            res.real = a.real + b.real;
+            res.img = a.img + b.img;
+            return res;
+        }
+        SoPhuc mul(SoPhuc a, SoPhuc b){
+            SoPhuc res = new SoPhuc();
+            res.real = a.real * b.real - a.img * b.img;
+            res.img = a.real * b.img + a.img * b. real;
+            return res;
+        }
+        void ouput(SoPhuc a){
+            if ( a.img < 0 ){
+                a.img = 0 - a.img;
+                System.out.print(a.real + " - " + a.img + "i");
+            }else{
+                System.out.print(a.real + " + " + a.img + "i");
+            }
+        }
+        void proces(SoPhuc b){
+            SoPhuc res = sum(this,b);
+            res = mul(res,this);
+            ouput(res);
+            System.out.print(", ");
+            res = sum(this,b);
+            res = mul(res,res);
+            ouput(res);
+            System.out.println();
+        }
+    }
+
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            SoPhuc a = new SoPhuc();
+            SoPhuc b = new SoPhuc();
+            a.input(sc);
+            b.input(sc);
+            a.proces(b);
+        }
+    }
+}
+

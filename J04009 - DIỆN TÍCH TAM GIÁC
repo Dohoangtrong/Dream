@@ -1,0 +1,56 @@
+package controller;
+
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static boolean check(double a, double b, double c){
+        if ( a + b <= c || a + c <= b || b + c <= a ){
+            return false;
+        }
+        return true;
+    }
+    private static double edge(TamGiac a, TamGiac b) {
+        double res = (a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y);
+        return Math.sqrt(res);
+    }
+
+    public static double area(double a, double b, double c) {
+        double res = (a+b+c)*(a+b-c)*(a-b+c)*(-a+b+c);
+        res = Math.sqrt(res) / 4;
+        return res;
+    }
+
+    public static class TamGiac {
+        public double x, y;
+        void input(Scanner sc) {
+            this.x = sc.nextDouble();
+            this.y = sc.nextDouble();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            TamGiac a = new TamGiac();
+            TamGiac b = new TamGiac();
+            TamGiac c = new TamGiac();
+            a.input(sc);
+            b.input(sc);
+            c.input(sc);
+            double x, y, z;
+            x = edge(a,b);
+            y = edge(b,c);
+            z = edge(a,c);
+            if ( check(x,y,z) ){
+                System.out.printf("%.2f\n", area(x,y,z));
+            }else{
+                System.out.println("INVALID");
+            }
+        }
+    }
+}

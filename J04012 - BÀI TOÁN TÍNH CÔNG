@@ -1,0 +1,49 @@
+package controller;
+
+import javax.swing.*;
+import java.awt.*;
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+    static int cnt = 1;
+    public static class Employee{
+        public String name, pos;
+        public int income, day, id;
+        void input(Scanner sc) {
+            this.name = sc.nextLine();
+            this.income = sc.nextInt();
+            this.day = sc.nextInt();
+            sc.nextLine();
+            this.pos = sc.nextLine();
+            this.id = cnt;
+            cnt++;
+        }
+        int gift(int money){
+            if ( this.day >= 25 ) return money / 5;
+            else if ( this.day >= 22 ) return money / 10;
+            return 0;
+        }
+        int more(String a){
+            if ( a.compareTo("GD") == 0 ) return 250000;
+            if ( a.compareTo("PGD") == 0 ) return 200000;
+            if ( a.compareTo("TP") == 0 ) return 180000;
+            return 150000;
+        }
+        void output(){
+            int a = this.income * this.day;
+            int b = gift(a);
+            int c = more(this.pos);
+            System.out.printf("NV01 %s %d %d %d %d", this.name, a, b, c, a+b+c);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Employee a = new Employee();
+        a.input(sc);
+        a.output();
+    }
+}
+

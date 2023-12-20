@@ -1,0 +1,53 @@
+package controller;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class controller_users {
+    static int cnt = 1;
+    public static class Time {
+        public String name, id;
+        public int start, end;
+        void input(Scanner sc) {
+            this.id = sc.nextLine();
+            this.name = sc.nextLine();
+            String x = sc.nextLine();
+            this.start = Integer.parseInt(x.substring(0,2)) * 60;
+            this.start += Integer.parseInt(x.substring(3));
+            x = sc.nextLine();
+            this.end = Integer.parseInt(x.substring(0,2)) * 60;
+            this.end += Integer.parseInt(x.substring(3));
+        }
+        void output(){
+            int res = this.end - this.start;
+            int hour = (int) res / 60;
+            int min = res - hour * 60;
+            System.out.printf("%s %s %d gio %d phut\n",this.id, this.name, hour, min);
+        }
+    }
+
+    static class Ss implements Comparator<Time>{
+        public int compare(Time a, Time b){
+            return (b.end - b.start) - (a.end - a.start);
+        }
+    }
+
+    public static void main(String[] args) throws  FileNotFoundException{
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Time> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i++ ){
+            Time x = new Time();
+            x.input(sc);
+            arr.add(x);
+        }
+        arr.sort( new Ss() );
+        for ( int i = 0; i < t; i++ ){
+            arr.get(i).output();
+        }
+    }
+}

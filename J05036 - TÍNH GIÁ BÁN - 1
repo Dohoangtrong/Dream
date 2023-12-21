@@ -1,0 +1,94 @@
+controller/controller_users.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class controller_users {
+
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Product> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            Product x = new Product();
+            x.input(sc);
+            arr.add(x);
+        }
+        for (Product x : arr ){
+            x.output();
+        }
+    }
+}
+
+
+controller/Product.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Product {
+    public static int cnt = 1;
+    private String type, name, id;
+    private int cost, num, trans, total, sell;
+    void input(Scanner sc) {
+        sc.nextLine();
+        this.name = sc.nextLine();
+        this.type = sc.nextLine();
+        this.cost = sc.nextInt();
+        this.num = sc.nextInt();
+        double tmp = this.cost * this.num;
+        this.trans = (int) Math.round(tmp * 5 / 100);
+        this.total = (int) Math.round(tmp) + this.trans;
+        this.sell = (int) Math.round ( (double) this.total * 102 / 100);
+        this.id = String.format("MH%02d", cnt);
+        cnt++;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public void output(){
+        System.out.printf("%s %s %s %d %d %d\n", this.id, this.name, this.type, this.trans, this.total, this.sell);
+    }
+}
+

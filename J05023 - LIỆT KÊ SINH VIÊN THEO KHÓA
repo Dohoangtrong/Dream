@@ -1,0 +1,61 @@
+package controller;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class controller_users {
+    public static class Student {
+        public String name, id, cla, email;
+        void input(Scanner sc) {
+            this.id = sc.nextLine();
+            this.name = sc.nextLine();
+            this.cla = sc.nextLine();
+            this.email = sc.nextLine();
+        }
+        void output(){
+            System.out.printf("%s %s %s %s\n",this.id, this.name, this.cla, this.email);
+        }
+    }
+
+    static class Ss implements Comparator<Student>{
+        public int compare(Student a, Student b){
+            return a.id.compareTo(b.id);
+        }
+    }
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            Student x = new Student();
+            x.input(sc);
+            arr.add(x);
+        }
+        int n = sc.nextInt();
+        sc.nextLine();
+        String str;
+        ArrayList<String> classs = new ArrayList<>();
+        for ( int i = 0; i < n; i++ ){
+            str = sc.nextLine();
+            classs.add(str);
+        }
+        int l = arr.size();
+        for ( String x : classs ){
+            System.out.printf("DANH SACH SINH VIEN KHOA %s:\n", x);
+            x = x.substring(2,4);
+            for ( int i = 0; i < l; i++ ){
+                String y = arr.get(i).cla.substring(1,3);
+                if ( x.compareTo(y) == 0 ){
+                    arr.get(i).output();
+                }
+            }
+        }
+    }
+}
+
+// simple datefomat

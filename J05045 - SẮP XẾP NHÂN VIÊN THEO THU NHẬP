@@ -1,0 +1,70 @@
+controller/Employee.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Employee {
+    private String ten, chucvu, id;
+    private long phucap, luongchinh, tamung, conlai;
+    public Employee(int cnt, String ten, String chucvu, long luong, long ngay){
+        this.ten = ten;
+        this.chucvu = chucvu;
+        this.luongchinh = luong * ngay;
+        this.phucap = proc(chucvu);
+        this.tamung = process(this.luongchinh, this.phucap);
+        this.conlai = this.luongchinh + this.phucap - this.tamung;
+        this.id = String.format("NV%02d", cnt);
+    }
+    long proc(String a){
+        if ( a.equals("GD") ) return 500;
+        if ( a.equals("PGD") ) return 400;
+        if ( a.equals("TP") ) return 300;
+        if ( a.equals("KT") ) return 250;
+        return 100;
+    }
+    long process(long a, long b){
+        double res = (double) ( a + b ) * 2 / 3;
+        if ( res < 25000 ) return Math.round( res / 1000 ) * 1000;
+        return 25000;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + ten + " " + phucap + " " + luongchinh + " " + tamung + " " + conlai;
+    }
+    static class Ss implements Comparator<Employee>{
+        public int compare(Employee a, Employee b){
+            long a1, b1;
+            a1 = a.luongchinh + a.phucap;
+            b1 = b.luongchinh + b.phucap;
+            if ( a1 == b1 ) return a.id.compareTo(b.id);
+            return (int) (b1 - a1);
+        }
+    }
+}
+
+
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Employee> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            arr.add( new Employee( (i+1), sc.nextLine(), sc.nextLine(), sc.nextLong(), sc.nextLong()) );
+        }
+        arr.sort( new Employee.Ss() );
+        for ( Employee x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+

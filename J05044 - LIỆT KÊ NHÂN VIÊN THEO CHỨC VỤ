@@ -1,0 +1,81 @@
+controller/controller_users.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class controller_users {
+
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Employee> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            Employee x = new Employee();
+            x.input(sc);
+            arr.add(x);
+        }
+        sc.nextLine();
+        String tmp = sc.nextLine();
+        for ( Employee x : arr ){
+            if ( x.getChucvu().compareTo(tmp) == 0 ){
+                x.output();
+            }
+        }
+    }
+}
+
+
+controller/Employee.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Employee {
+    static int cnt = 1;
+    private String ten, chucvu, id;
+    private int phucap, luongchinh, tamung, conlai, luong, ngay;
+    void input(Scanner sc) {
+        sc.nextLine();
+        this.ten = sc.nextLine();
+        this.chucvu = sc.nextLine();
+        this.luong = sc.nextInt();
+        this.ngay = sc.nextInt();
+        this.phucap = proc(this.chucvu);
+        this.luongchinh = this.luong * this.ngay;
+        this.tamung = process(this.phucap, this.luongchinh);
+        this.conlai = this.luongchinh - this.tamung + this.phucap;
+        this.id = String.format("NV%02d", cnt);
+        cnt++;
+    }
+
+    int proc(String a){
+        if ( a.compareTo("GD") == 0 ) return 500;
+        if ( a.compareTo("PGD") == 0 ) return 400;
+        if ( a.compareTo("TP") == 0 ) return 300;
+        if ( a.compareTo("KT") == 0 ) return 250;
+        return 100;
+    }
+
+    int process(int a, int b){
+        if ( (a+b)*2/3 < 25000 ) return (int) Math.round( (double) (a+b) * 2 / 3 / 1000 ) * 1000;
+        return 25000;
+    }
+
+    public void output(){
+        System.out.printf("%s %s %d %d %d %d\n",this.id, this.ten, this.phucap, this.luongchinh, this.tamung, this.conlai);
+    }
+
+    public String getChucvu() {
+        return chucvu;
+    }
+
+    public void setChucvu(String chucvu) {
+        this.chucvu = chucvu;
+    }
+}
+

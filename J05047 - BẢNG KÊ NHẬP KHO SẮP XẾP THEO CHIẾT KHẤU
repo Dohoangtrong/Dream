@@ -1,0 +1,71 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Product> arr = new ArrayList<>();
+        Map<String,Integer> map = new HashMap<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            String name = sc.nextLine();
+            String a[] = name.split("\\s+");
+            String id = "" + a[0].charAt(0) + a[1].charAt(0);
+            id = id.toUpperCase();
+            if ( map.containsKey(id) ){
+                int tmp = map.get(id);
+                map.put(id,tmp+1);
+                id = id + "0" + String.valueOf(tmp+1);
+            }else{
+                map.put(id,1);
+                id = id + "01";
+            }
+            arr.add( new Product( id ,name ,sc.nextLong(),sc.nextLong()) );
+        }
+        arr.sort( new Product.Ss() );
+        for ( Product x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+controller/Product.java
+package controller;
+
+import java.util.Comparator;
+
+public class Product {
+    private String ten, id;
+    private long chietkhau, thanhtien;
+    public Product(String id, String ten, long soluong, long dongia){
+        this.id = id;
+        this.ten = ten;
+        this.chietkhau = tinhChietKhau(soluong, dongia);
+        this.thanhtien = soluong * dongia - chietkhau;
+    }
+    long tinhChietKhau(long soluong, long dongia){
+        if ( soluong < 5 ) return 0;
+        if ( soluong < 8 ) return soluong * dongia / 100;
+        if ( soluong < 11 ) return soluong * dongia / 50;
+        return soluong * dongia / 20;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + ten + " " + chietkhau + " " + thanhtien;
+    }
+    static class Ss implements  Comparator<Product>{
+        public int compare ( Product a, Product b ){
+            return (int) (b.chietkhau - a.chietkhau);
+        }
+    }
+}
+
+

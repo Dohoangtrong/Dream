@@ -1,0 +1,102 @@
+controller/controller_users.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class controller_users {
+
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Product> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            Product x = new Product();
+            x.input(sc);
+            arr.add(x);
+        }
+        arr.sort( new Product.Ss() );
+        for (Product x : arr ){
+            x.output();
+        }
+    }
+}
+
+
+controller/Product.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Product {
+    public static int cnt = 1;
+    private String type, name, id;
+    private long cost, num, trans, total, sell;
+    void input(Scanner sc) {
+        sc.nextLine();
+        this.name = sc.nextLine();
+        this.type = sc.nextLine();
+        this.cost = sc.nextLong();
+        this.num = sc.nextLong();
+        double tmp = this.cost * this.num;
+        this.trans = (long) Math.round(tmp * 5 / 100);
+        this.total = (long) Math.round(tmp) + this.trans;
+        tmp = this.total * 102 / 100 / this.num;
+        this.sell = (long) Math.ceil ( tmp / 100 ) * 100;
+        this.id = String.format("MH%02d", cnt);
+        cnt++;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public long getCost() {
+        return cost;
+    }
+
+    public void setCost(long cost) {
+        this.cost = cost;
+    }
+
+    public long getNum() {
+        return num;
+    }
+
+    public void setNum(long num) {
+        this.num = num;
+    }
+
+    static class Ss implements Comparator<Product>{
+        public int compare( Product a, Product b){
+            return  (int) (b.sell - a.sell);
+        }
+    }
+
+    public void output(){
+        System.out.printf("%s %s %s %d %d %d\n", this.id, this.name, this.type, this.trans, this.total, this.sell);
+    }
+}
+

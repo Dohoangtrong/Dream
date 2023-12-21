@@ -1,0 +1,83 @@
+controller/controller_users.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class controller_users {
+
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Money> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            Money x = new Money();
+            x.input(sc);
+            arr.add(x);
+        }
+        long res = 0;
+        for (Money x : arr ){
+            res += x.getPhucap() + x.getThuong() + x.getTong();
+            x.output();
+        }
+        System.out.println("Tong chi phi tien luong: " + res);
+    }
+}
+
+
+controller/Money.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Money {
+    public static int cnt = 1;
+    private String ten, id, vitri;
+    private long luong, ngay, tong, thuong, phucap;
+    void input(Scanner sc) {
+        this.ten = sc.nextLine();
+        this.luong = sc.nextLong();
+        this.ngay = sc.nextLong();
+        sc.nextLine();
+        this.vitri = sc.nextLine();
+        this.tong = this.luong * this.ngay;
+        this.id = String.format("NV%02d", cnt);
+        this.thuong = proc1(this.ngay,this.tong);
+        this.phucap = proc(this.vitri);
+        cnt++;
+    }
+
+    public long getTong() {
+        return tong;
+    }
+
+    public long getThuong() {
+        return thuong;
+    }
+
+    public long getPhucap() {
+        return phucap;
+    }
+
+    long proc1(long a, long b ){
+        if ( a < 22 ) return 0;
+        if ( a < 25 ) return b / 10;
+        return b / 5;
+    }
+
+    long proc( String a ){
+        if ( a.compareTo("GD") == 0 ) return 250000;
+        if ( a.compareTo("PGD") == 0 ) return 200000;
+        if ( a.compareTo("TP") == 0 ) return 180000;
+        return 150000;
+    }
+
+
+    public void output(){
+        System.out.printf("%s %s %d %d %d %d\n", this.id, this.ten, this.tong, this.thuong, this.phucap, this.tong + this.thuong + this.phucap);
+    }
+}
+

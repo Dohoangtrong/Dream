@@ -1,0 +1,293 @@
+controller/controller_users.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class controller_users {
+
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Money> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            Money x = new Money();
+            x.input(sc);
+            arr.add(x);
+        }
+        
+        for (Money x : arr ){
+            x.output();
+        }
+    }
+}
+
+
+controller/Teacher.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Teacher {
+    public static int cnt = 1;
+    private String fullname, id, type;
+
+    void input(Scanner sc) {
+        this.fullname = sc.nextLine();
+        this.type = sc.nextLine();
+        this.id = String.format("GV%02d", cnt);
+        cnt++;
+    }
+    public String getFullname() { return fullname; }
+    public void setFullname(String fullname) { this.fullname = fullname; }
+    public String getId() { return id; }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+}
+
+controller/Company.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Company {
+    private String id, name;
+    private int numb;
+    void input(Scanner sc) {
+        sc.nextLine();
+        this.id = sc.nextLine();
+        this.name = sc.nextLine();
+        this.numb = sc.nextInt();
+    }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
+    public int getNumb() { return numb; }
+    public void setNumb(int numb) { this.numb = numb; }
+
+
+    static class Ss implements Comparator<Company> {
+        public int compare ( Company a, Company b ){
+            if ( a.getNumb() == b.getNumb() ) return a.id.compareTo(b.id);
+            return b.numb - a.numb;
+        }
+    }
+    public void output(){
+        System.out.printf("%s %s %s\n", this.id, this.name, this.numb);
+    }
+}
+
+controller/Student.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Student {
+    private String id, name, clas;
+    private double sub1, sub2, sub3;
+    void input(Scanner sc) {
+        sc.nextLine();
+        this.id = sc.nextLine();
+        this.name = sc.nextLine();
+        this.clas = sc.nextLine();
+        this.sub1 = sc.nextDouble();
+        this.sub2 = sc.nextDouble();
+        this.sub3 = sc.nextDouble();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getClas() {
+        return clas;
+    }
+
+    public void setClas(String clas) {
+        this.clas = clas;
+    }
+
+    public double getSub1() {
+        return sub1;
+    }
+
+    public void setSub1(double sub1) {
+        this.sub1 = sub1;
+    }
+
+    public double getSub2() {
+        return sub2;
+    }
+
+    public void setSub2(double sub2) {
+        this.sub2 = sub2;
+    }
+
+    public double getSub3() {
+        return sub3;
+    }
+
+    public void setSub3(double sub3) {
+        this.sub3 = sub3;
+    }
+
+    static class Ss implements Comparator<Student> {
+        public int compare (Student a, Student b ){
+            return a.getName().compareTo(b.getName());
+        }
+    }
+    public void output(){
+        System.out.printf("%s %s %s %.1f %.1f %.1f\n", this.id, this.name, this.clas, this.sub1, this.sub2, this.sub3);
+    }
+}
+
+controller/Members.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Members {
+    public static int cnt = 1;
+    private String idSt, name, clas, email, company;
+    private int id;
+    void input(Scanner sc) {
+        this.idSt = sc.nextLine();
+        this.name = sc.nextLine();
+        this.clas = sc.nextLine();
+        this.email = sc.nextLine();
+        this.company = sc.nextLine();
+        this.id = cnt;
+        cnt++;
+    }
+
+    public String getIdSt() {
+        return idSt;
+    }
+
+    public void setIdSt(String idSt) {
+        this.idSt = idSt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getClas() {
+        return clas;
+    }
+
+    public void setClas(String clas) {
+        this.clas = clas;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    static class Ss implements Comparator<Members>{
+        @Override
+        public int compare(Members a, Members b){
+            return a.getIdSt().compareTo(b.getIdSt());
+        }
+    }
+    public void output(){
+        System.out.printf("%d %s %s %s %s %s\n", this.id, this.idSt, this.name, this.clas, this.email, this.company);
+    }
+}
+
+controller/Money.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Money {
+    public static int cnt = 1;
+    private String type, id;
+    private int old, neu, total, more, p, summ;
+    void input(Scanner sc) {
+        sc.nextLine();
+        this.type = sc.nextLine();
+        this.old = sc.nextInt();
+        this.neu = sc.nextInt();
+        this.id = String.format("KH%02d", cnt);
+        this.p = proc(this.type);
+        this.total = ( this.neu - this.old ) * this.p * 550;
+        this.more = proc1(this.neu, this.old, this.total);
+        this.summ = this.total + this.more;
+        cnt++;
+    }
+
+    public int proc(String a){
+        if ( a.compareTo("KD") == 0 ) return 3;
+        if ( a.compareTo("NN") == 0 ) return 5;
+        if ( a.compareTo("TT") == 0 ) return 4;
+        return 2;
+    }
+
+    public int proc1(int a, int b, int t){
+        if ( a - b < 50 ) return 0;
+        if ( a - b <= 100 ) return (int) Math.round((double) this.total * 35 / 100);
+        return t;
+    }
+    public String getType() {
+        return type;
+    }
+    public int getTotal() {
+        return total;
+    }
+    public int getMore() {
+        return more;
+    }
+    public int getSumm() {
+        return summ;
+    }
+    static class Ss implements Comparator<Money>{
+        @Override
+        public int compare(Money a, Money b){
+            return b.getSumm() - a.getSumm();
+        }
+    }
+    public void output(){
+        System.out.printf("%s %d %d %d %d\n", this.id, this.p, this.total, this.more, this.summ);
+    }
+}
+

@@ -1,0 +1,58 @@
+controller/controller_users.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class controller_users {
+
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            Student x = new Student();
+            x.input(sc);
+            arr.add(x);
+        }
+        arr.sort( new Student.Ss() );
+        for (Student x : arr ){
+            x.output();
+        }
+    }
+}
+
+
+controller/Student.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Student {
+    private String name;
+    private int ac, submit;
+    void input(Scanner sc) {
+        sc.nextLine();
+        this.name = sc.nextLine();
+        this.ac = sc.nextInt();
+        this.submit = sc.nextInt();
+    }
+
+
+    static class Ss implements  Comparator<Student>{
+        public int compare(Student a, Student b){
+            if ( a.ac == b.ac ){
+                if ( a.submit == b.submit ) return a.name.compareTo(b.name);
+                else return a.submit - b.submit;
+            }
+            return b.ac - a.ac;
+        }
+    }
+
+    public void output(){
+        System.out.printf("%s %d %d\n",this.name, this.ac, this.submit);
+    }
+}
+

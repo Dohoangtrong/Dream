@@ -1,0 +1,77 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Product> arr = new ArrayList<>();
+        Map<String,Integer> map = new HashMap<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            arr.add( new Product( sc.nextLine(),sc.nextLong()) );
+        }
+        arr.sort( new Product.Ss() );
+        String a = sc.next();
+        for ( Product x : arr ){
+            if ( x.getId().charAt(0) == a.charAt(0) ){
+                System.out.println(x);
+            }
+        }
+    }
+}
+
+controller/Product.java
+package controller;
+
+import java.util.Comparator;
+import java.util.SimpleTimeZone;
+
+public class Product {
+    private String id;
+    private long nhap, xuat, dongia, tien, thue;
+    public Product(String id, long nhap){
+        this.id = id;
+        this.nhap = nhap;
+        if ( id.charAt(0) == 'A' ) this.xuat = Math.round( (double) nhap * 6 / 10 );
+        else this.xuat = Math.round( (double) nhap * 7 / 10 );
+        this.dongia = tinhDonGia(this.id);
+        this.tien = this.xuat * dongia;
+        this.thue = tinhThue(id, tien);
+    }
+    public long tinhDonGia(String a){
+        if ( a.charAt(a.length()-1) == 'Y' ) return 110000;
+        return 135000;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public long tinhThue(String a, long tien){
+        int l = a.length() - 1;
+        if ( a.charAt(0) == 'A' && a.charAt(l) == 'Y' ) return tien * 8 / 100;
+        if ( a.charAt(0) == 'A' && a.charAt(l) == 'N' ) return tien * 11 / 100;
+        if ( a.charAt(0) == 'B' && a.charAt(l) == 'Y' ) return tien * 17 / 100;
+        return tien * 22 / 100;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + nhap + " " + xuat + " " + dongia + " " + tien + " " + thue;
+    }
+
+    static class Ss implements Comparator<Product>{
+        public int compare ( Product a, Product b ){
+            return (int)(b.thue - a.thue);
+        }
+    }
+}
+
+

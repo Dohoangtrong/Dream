@@ -1,0 +1,71 @@
+controller/controller_users.java
+package controller;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class controller_users {
+
+    public static String convert( String a ){
+        String arr[] = a.split("\\s+");
+        int l = arr.length;
+        String res = "";
+        for ( int i = 0; i < l; i++ ){
+            res += Character.toUpperCase(arr[i].charAt(0));
+        }
+        return res;
+    }
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Teacher> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            Teacher x = new Teacher();
+            x.input(sc);
+            arr.add(x);
+        }
+        t = sc.nextInt();
+        sc.nextLine();
+        String x;
+        while( t-->0 ){
+            x = sc.nextLine();
+            String res = convert(x);
+            System.out.printf("DANH SACH GIANG VIEN BO MON %s:\n", res);
+            for ( Teacher ob : arr ){
+                if ( ob.getType().compareTo(x) == 0 ){
+                    System.out.printf("%s %s %s\n", ob.getId(), ob.getFullname(), res);
+                }
+            }
+        }
+    }
+}
+
+
+controller/Teacher.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Teacher {
+    public static int cnt = 1;
+    private String fullname, id, type;
+
+    void input(Scanner sc) {
+        this.fullname = sc.nextLine();
+        this.type = sc.nextLine();
+        this.id = String.format("GV%02d", cnt);
+        cnt++;
+    }
+    public String getFullname() { return fullname; }
+    public void setFullname(String fullname) { this.fullname = fullname; }
+    public String getId() { return id; }
+    public String getType() { return type; }
+    public void setType(String type) { this.type = type; }
+}
+

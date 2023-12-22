@@ -1,0 +1,66 @@
+GG/Main.java
+package GG;
+
+import java.io.*;
+import java.text.ParseException;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws ParseException, FileNotFoundException {
+        Scanner sc = new Scanner(new File("SINHVIEN.in"));
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<Student> arr = new ArrayList<>();
+        for ( int i = 0; i < t; i++ ){
+            Student x = new Student( sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine() );
+            arr.add(x);
+        }
+        for ( Student x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+GG/Student.java
+package GG;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Student {
+    static int cnt = 1;
+    private String ten, lop, ngaysinh, ma;
+    private double diem;
+    public Student(String ten, String lop, String ngaysinh, String diem) throws ParseException {
+        this.ma = String.format("B20DCCN%03d", cnt);
+        cnt++;
+        this.ten = proces(ten);
+        this.lop = lop;
+        Date a = new SimpleDateFormat("dd/MM/yyyy").parse(ngaysinh);
+        this.ngaysinh = new SimpleDateFormat("dd/MM/yyyy").format(a);
+        this.diem = Double.parseDouble(diem);
+
+
+    }
+
+    String proces(String x){
+        x = x.toLowerCase().trim();
+        String arr[] = x.split("\\s+");
+        int l = arr.length;
+        String res = "";
+        for ( int i = 0; i < l; i ++ ){
+            res = res + arr[i].substring(0,1).toUpperCase() + arr[i].substring(1) + " ";
+        }
+        return res.trim();
+    }
+
+    @Override
+    public String toString(){
+        return ma + " " + ten + " " + lop + " " + ngaysinh + " " + String.format("%.2f",diem);
+    }
+
+}
+

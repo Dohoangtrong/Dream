@@ -1,0 +1,68 @@
+controller/KhachHang.java
+package controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class KhachHang {
+    static int cnt = 1;
+    public SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private String ma, ten, gioiTinh, diaChi;
+    private Date ngaySinh;
+    public KhachHang(String ten, String gioiTinh, String ngaySinh, String diaChi) throws ParseException {
+        this.ma = String.format("KH%03d", cnt);
+        cnt++;
+        this.ten = chuanHoa(ten);
+        this.gioiTinh = gioiTinh;
+        this.diaChi = diaChi;
+        this.ngaySinh = sdf.parse(ngaySinh);
+    }
+
+    String chuanHoa(String a){
+        a = a.toLowerCase();
+        String arr[] = a.trim().split("\\s+");
+        String res = "";
+        for ( int i = 0; i < arr.length; i++ ){
+            res = res + arr[i].substring(0,1).toUpperCase() + arr[i].substring(1) + " ";
+        }
+        return res;
+    }
+
+    @Override
+    public String toString(){
+        return ma + " " + ten + gioiTinh + " " + diaChi + " " + sdf.format(ngaySinh);
+    }
+    static class Ss implements Comparator<KhachHang>{
+        public int compare(KhachHang a, KhachHang b){
+            return a.ngaySinh.getTime() < b.ngaySinh.getTime() ? -1 : 1;
+        }
+    }
+}
+
+controller/Main.java
+package controller;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<KhachHang> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            KhachHang x = new KhachHang( sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine() );
+            arr.add(x);
+        }
+        arr.sort(new KhachHang.Ss());
+        for ( KhachHang x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+

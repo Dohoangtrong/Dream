@@ -1,0 +1,108 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Phong> arr = new ArrayList<>();
+        ArrayList<NV> members = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            String in = sc.nextLine();
+            Phong x = new Phong( in.substring(0,2), in.substring(3) );
+            arr.add(x);
+        }
+        t = Integer.parseInt(sc.nextLine());
+        for ( int i = 0; i < t; i++ ){
+            String id = sc.nextLine();
+            String ten = sc.nextLine();
+            int luong = Integer.parseInt(sc.nextLine());
+            int soNgay = Integer.parseInt(sc.nextLine());
+            for ( Phong x : arr ){
+                if ( x.getId().equals(id.substring(3)) ){
+                    NV nv = new NV ( id, x.getPhong(), ten, luong, soNgay );
+                    members.add(nv);
+                }
+            }
+        }
+        for ( NV x : members ){
+            System.out.println(x);
+        }
+
+    }
+}
+
+controller/NV.java
+package controller;
+
+import java.util.Comparator;
+
+public class NV {
+    private String id, ten, phong;
+    private int luong;
+    public NV(String id, String phong, String ten, int luong, int soNgay){
+        this.id = id;
+        this.ten = ten;
+        this.phong = phong;
+        this.luong = luong * soNgay * 1000;
+        this.luong = tinhLuong(this.luong,id);
+    }
+
+    int tinhLuong(int luong, String id){
+        int tmp = Integer.parseInt(id.substring(1,3));
+        if ( id.charAt(0) == 'A' ){
+            if ( 1 <= tmp && tmp <= 3 ) return luong * 10;
+            if ( 4 <= tmp && tmp <= 8 ) return luong * 12;
+            if ( 9 <= tmp && tmp <= 15 ) return luong * 14;
+            if ( 16 <= tmp ) return luong * 20;
+        }
+        if ( id.charAt(0) == 'B' ){
+            if ( 1 <= tmp && tmp <= 3 ) return luong * 10;
+            if ( 4 <= tmp && tmp <= 8 ) return luong * 11;
+            if ( 9 <= tmp && tmp <= 15 ) return luong * 13;
+            if ( 16 <= tmp ) return luong * 16;
+        }
+        if ( id.charAt(0) == 'C' ){
+            if ( 1 <= tmp && tmp <= 3 ) return luong * 9;
+            if ( 4 <= tmp && tmp <= 8 ) return luong * 10;
+            if ( 9 <= tmp && tmp <= 15 ) return luong * 12;
+            if ( 16 <= tmp ) return luong * 14;
+        }
+        if ( id.charAt(0) == 'D' ){
+            if ( 1 <= tmp && tmp <= 3 ) return luong * 8;
+            if ( 4 <= tmp && tmp <= 8 ) return luong * 9;
+            if ( 9 <= tmp && tmp <= 15 ) return luong * 11;
+            if ( 16 <= tmp ) return luong * 13;
+        }
+        return luong;
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + ten + " " + phong + " " + luong;
+    }
+}
+
+
+controller/Phong.java
+package controller;
+
+public class Phong {
+    private String id, phong;
+    public Phong(String id, String phong){
+        this.id = id;
+        this.phong = phong;
+    }
+    public String getId() {
+        return id;
+    }
+    public String getPhong() {
+        return phong;
+    }
+}
+

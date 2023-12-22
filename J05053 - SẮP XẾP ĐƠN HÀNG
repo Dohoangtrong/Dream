@@ -1,0 +1,58 @@
+package controller;
+
+import java.util.*;
+
+public class controller_users {
+
+    public static class Product {
+        public String name, id;
+        public long cash, num, total;
+        void input(Scanner sc) {
+            this.name = sc.nextLine();
+            this.id = sc.nextLine();
+            this.cash = sc.nextLong();
+            this.num = sc.nextLong();
+            sc.nextLine();
+            this.total = this.cash * this.num - sale(this.id);
+        }
+        long sale(String a){
+            if ( a.charAt(4) == '1' ){
+                return this.cash * 50 / 100 * this.num;
+            }else{
+                return this.cash * 30 / 100 * this.num;
+            }
+        }
+
+        String proc(String a){
+            String res = "" + a.charAt(1) + a.charAt(2) + a.charAt(3);
+            return res;
+        }
+    }
+    static class SortProduct implements Comparator<Product>{
+
+        @Override
+        public int compare(Product s1, Product s2) {
+            String a = s1.id.substring(1,4);
+            String b = s2.id.substring(1,4);
+            if ( a != b ) return a.compareTo(b);
+            return 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+        ArrayList<Product> arr = new ArrayList<>();
+        for ( int i = 0; i < t; i++ ){
+            Product a = new Product();
+            a.input(sc);
+            arr.add(a);
+        }
+        arr.sort( new SortProduct() );
+
+        for ( Product x : arr ){
+            System.out.println( x.name + " " + x.id + " " + x.proc(x.id) + " " + x.sale(x.id) + " " + x.total);
+        }
+    }
+}

@@ -1,0 +1,70 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Product> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            Product x = new Product( sc.next(), Long.parseLong( sc.next() ) );
+            arr.add(x);
+        }
+        for ( Product x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+controller/Product.java
+package controller;
+
+import java.util.Comparator;
+
+public class Product {
+        private String id, hangSX;
+        private long donGia, thue, thanhTien;
+        public Product(String id, long soLuong){
+            this.id = id;
+            int l = id.length();
+            this.hangSX = xuLyTen(id.substring(3));
+            this.donGia = tinhDonGia(id.charAt(0));
+            this.thue = tinhThue(id.charAt(0),soLuong);
+            if ( id.substring(3).equals("TN") ) this.thue = 0;
+            this.thanhTien = donGia * soLuong + thue;
+        }
+
+        long tinhDonGia(char a){
+            if ( a == 'X' ) return 128000;
+            if ( a == 'D' ) return 11200;
+            return 9700;
+        }
+
+        long tinhThue(char id, long soLuong){
+            if ( id == 'X' ) return soLuong * 1280 * 3 ;
+            if ( id == 'D' ) return soLuong * 112 * 35 / 10 ;
+            return 97 * soLuong * 2;
+        }
+
+        String xuLyTen(String a){
+            if ( a.equals("BP") ) return "British Petro";
+            if ( a.equals("ES") ) return "Esso";
+            if ( a.equals("SH") ) return "Shell";
+            if ( a.equals("CA") ) return "Castrol";
+            if ( a.equals("MO") ) return "Mobil";
+            return "Trong Nuoc";
+        }
+
+        @Override
+        public String toString(){
+            return id + " " + hangSX + " " + donGia + " " + thue + " " + thanhTien;
+        }
+
+}
+
+

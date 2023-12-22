@@ -1,0 +1,61 @@
+package controller;
+
+import java.lang.reflect.Array;
+import java.util.*;
+
+public class controller_users {
+    public static int cnt = 1;
+    public static class HS {
+        public String name, power;
+        public int id;
+        public float gpa;
+        void input(Scanner sc) {
+            this.name = sc.nextLine();
+            this.gpa = sc.nextFloat();
+            sc.nextLine();
+            this.id = cnt;
+            cnt++;
+            this.power = proc(this.gpa);
+        }
+        String proc(float gpa){
+            if ( gpa < 5 ) return "Yeu";
+            else if ( gpa < 7 ) return "Trung Binh";
+            else if ( gpa < 9 ) return "Kha";
+            return "Gioi";
+        }
+    }
+//    static class SortProduct implements Comparator<HS>{
+//
+//        @Override
+//        public int compare(HS s1, HS s2) {
+//            float a = s1.gpa;
+//            float b = s2.gpa;
+//            if ( a != b ) return Float.compare(a,b);
+//            return 0;
+//        }
+//    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+        ArrayList<HS> arr = new ArrayList<>();
+        ArrayList<Float> gpaS = new ArrayList<>();
+        for ( int i = 0; i < t; i++ ){
+            HS a = new HS();
+            a.input(sc);
+            arr.add(a);
+            gpaS.add(a.gpa);
+        }
+        Collections.sort(gpaS);
+        Map<Float , Integer> map = new HashMap<>();
+        for ( int i = 0; i < gpaS.size(); i++ ){
+            map.put(gpaS.get(i),i);
+        }
+        for ( HS x : arr ){
+            if ( x.id < 10 ) System.out.print("HS0"+x.id);
+            else System.out.print("HS"+x.id);
+            System.out.println( " " + x.name + " " + x.gpa + " " + x.power + " " + (t-map.get(x.gpa)));
+        }
+    }
+}

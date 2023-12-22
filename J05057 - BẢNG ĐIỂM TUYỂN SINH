@@ -1,0 +1,65 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            Student x = new Student();
+            x.input(sc);
+            arr.add(x);
+        }
+        for ( Student x : arr ){
+            x.output();
+        }
+    }
+}
+
+controller/Student.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Student {
+    private String name, id;
+    private double math, sci, chem;
+    void input(Scanner sc) {
+        sc.nextLine();
+        this.id = sc.nextLine();
+        this.name = sc.nextLine();
+        this.math = sc.nextDouble();
+        this.sci = sc.nextDouble();
+        this.chem = sc.nextDouble();
+    }
+    void convert(double a){
+        if ( a - (int) a == 0.0f ){
+            System.out.print((int)a + " ");
+        }else System.out.print(a + " ");
+    }
+
+    Double proces(String i){
+        String str = i.substring(0,3);
+        if ( str.compareTo("KV1") == 0 ) return 0.5;
+        if ( str.compareTo("KV2") == 0 ) return 1.0;
+        return 2.5;
+    }
+
+    void output(){
+        double a = proces(this.id);
+        double res = this.chem + this.math * 2 + this.sci;
+        System.out.print(this.id + " " + this.name + " ");
+        convert(a);
+        convert(res);
+        if ( res + a >= 24.0 ) System.out.print("TRUNG TUYEN\n");
+        else System.out.print("TRUOT\n");
+    }
+}
+
+

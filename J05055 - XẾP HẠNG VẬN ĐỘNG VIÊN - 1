@@ -1,0 +1,108 @@
+GG/Main.java
+package GG;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<VDV> arr = new ArrayList<>();
+        while(t-->0){
+            VDV x = new VDV( sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine() );
+            arr.add(x);
+        }
+        Set<Long> time = new TreeSet<>();
+        for ( VDV x : arr ){
+            time.add(x.getTongTime());
+        }
+        int cnt = 1, tmp;
+        for ( long x : time ){
+            tmp = 0;
+            for ( VDV k : arr ){
+                if ( k.getTongTime() == x )  {
+                    k.setXepHang(cnt);
+                    tmp++;
+                }
+            }
+            cnt = cnt + tmp;
+        }
+        for ( VDV x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+GG/VDV.java
+package GG;
+import java.util.Comparator;
+
+public class VDV {
+    public static int cnt = 1;
+    private String ten, ma, thucTe, uuTien, total;
+    private long tongTime;
+    private int xepHang;
+    public VDV(String ten, String ngaySinh, String start, String end){
+        this.ma = String.format("VDV%02d", cnt);
+        cnt++;
+        this.ten = ten;
+        String namSinh = ngaySinh.substring(6);
+        int tuoi = 2021 - Integer.parseInt(namSinh);
+        this.uuTien = tinhUuTien(tuoi);
+        this.thucTe = subTime(start,end);
+        this.total = subTime(uuTien,thucTe);
+        this.tongTime = tinhTongTime(total);
+    }
+
+    long tinhTongTime ( String x ){
+        long res = 0;
+        res += Long.parseLong(x.substring(0,2)) * 3600;
+        res += Long.parseLong(x.substring(3,5)) * 60;
+        res += Long.parseLong(x.substring(6));
+        return res;
+    }
+
+    public long getTongTime() {
+        return tongTime;
+    }
+
+    public void setXepHang(int xepHang) {
+        this.xepHang = xepHang;
+    }
+
+    private String tinhUuTien(int tuoi){
+        if ( tuoi >= 32 ) return "00:00:03";
+        if ( tuoi >= 25 ) return "00:00:02";
+        if ( tuoi >= 18 ) return "00:00:01";
+        return "00:00:00";
+    }
+
+    private String subTime(String x, String y){
+        int hhX = Integer.parseInt(x.substring(0,2));
+        int hhY = Integer.parseInt(y.substring(0,2));
+        int mmX = Integer.parseInt(x.substring(3,5));
+        int mmY = Integer.parseInt(y.substring(3,5));
+        int ssX = Integer.parseInt(x.substring(6));
+        int ssY = Integer.parseInt(y.substring(6));
+        int hRes, mRes, sRes;
+        sRes = ssY - ssX;
+        if ( sRes < 0 ){
+            sRes += 60; mmY -= 1;
+        }
+        mRes = mmY - mmX;
+        if ( mRes < 0 ){
+            mRes += 60; hhY -= 1;
+        }
+        hRes = hhY - hhX;
+        return String.format("%02d:%02d:%02d", hRes, mRes, sRes);
+    }
+
+    @Override
+    public String toString(){
+        return ma + " " + ten + " " + thucTe + " " + uuTien + " " + total + " " + xepHang;
+    }
+}
+

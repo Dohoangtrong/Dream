@@ -1,0 +1,71 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Member> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        Map<String,Integer> map = new HashMap<>();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            String id = sc.nextLine();
+            long heSo = Long.parseLong( id.substring(2,4) );
+            String chucVu = id.substring(0,2);
+            Member x = new Member( heSo, chucVu, sc.nextLine(), sc.nextLong() );
+            if ( chucVu.equals("HT") ){
+                if ( map.containsKey("HT") ) continue;
+                else  map.put("HT",1);
+            }
+            if ( chucVu.equals("HP") ){
+                if ( map.containsKey("HP") ){
+                    int a = map.get("HP");
+                    if ( a > 1 ) continue;
+                    else map.put("HP",a+1);
+                }
+                else  map.put("HP",1);
+            }
+            arr.add(x);
+        }
+        for ( Member x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+controller/Member.java
+package controller;
+
+import java.util.Comparator;
+
+public class Member {
+        private String ten, id;
+        private long phuCap, thuNhap, heSo;
+        public Member(long heSo, String chucVu, String ten, long luong){
+            this.id = chucVu + String.format("%02d", heSo);
+            this.ten = ten;
+            this.heSo = heSo;
+            this.phuCap = process( chucVu );
+            this.thuNhap = heSo * luong + phuCap;
+        }
+
+        long process ( String a ){
+            if ( a.equals("HT") ) return 2000000;
+            if ( a.equals("HP") ) return 900000;
+            return 500000;
+        }
+
+        @Override
+        public String toString(){
+            return id + " " + ten + " " + heSo + " " + phuCap + " " + thuNhap;
+        }
+
+}
+
+

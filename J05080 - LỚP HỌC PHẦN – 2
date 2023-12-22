@@ -1,0 +1,69 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            String nhom, id;
+            id = sc.nextLine();
+            nhom = sc.nextLine();
+            Student x = new Student( id, nhom, sc.nextLine(), sc.nextLine() );
+            arr.add(x);
+        }
+        arr.sort(new Student.Ss());
+        t = Integer.parseInt(sc.nextLine());
+        for ( int i = 0; i < t; i ++ ){
+            String ans = sc.nextLine();
+            System.out.printf("Danh sach cho giang vien %s:\n", ans);
+            for ( Student x : arr ){
+                if ( x.getGiangVien().equals(ans) ){
+                    System.out.println(x);
+                }
+            }
+        }
+
+
+    }
+}
+
+controller/Student.java
+package controller;
+
+import java.util.Comparator;
+
+public class Student {
+    private String id, nhom, ten, giangVien;
+    public Student(String id, String ten, String nhom, String giangVien){
+        this.id = id;
+        this.ten = ten;
+        this.nhom = nhom;
+        this.giangVien = giangVien;
+    }
+
+    public String getGiangVien() {
+        return giangVien;
+    }
+    @Override
+    public String toString(){
+        return id + " " + ten + " " + nhom;
+    }
+    static class Ss implements Comparator<Student>{
+        public int compare(Student a, Student b){
+            if ( a.id.compareTo(b.id) == 0 ){
+                return a.nhom.compareTo(b.nhom);
+            }
+            return a.id.compareTo(b.id);
+        }
+    }
+}
+

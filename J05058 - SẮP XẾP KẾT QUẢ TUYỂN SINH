@@ -1,0 +1,74 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            arr.add( new Student( sc.nextLine(), sc.nextLine(), sc.nextDouble(), sc.nextDouble(), sc.nextDouble()));
+        }
+        arr.sort( new Student.Ss() );
+        for ( Student x : arr ){
+            x.output();
+        }
+    }
+}
+
+controller/Student.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Student {
+        private String name, id, fin;
+        private double math, sci, chem, res, plus;
+        public Student(String id, String name, double math, double sci, double chem){
+            this.id = id;
+            this.name = name;
+            this.math = math;
+            this.sci = sci;
+            this.chem = chem;
+            this.plus = proces(this.id);
+            this.res = math * 2 + sci + chem + plus;
+            if ( res >= 24 ) fin = "TRUNG TUYEN";
+            else fin = "TRUOT";
+        }
+        void convert(double a){
+            if ( a - (int) a == 0.0f ){
+                System.out.printf("%.0f ", a);
+            }else System.out.printf("%.1f ", a);
+        }
+
+        Double proces(String i){
+            String str = i.substring(0,3);
+            if ( str.compareTo("KV1") == 0 ) return 0.5;
+            if ( str.compareTo("KV2") == 0 ) return 1.0;
+            return 2.5;
+        }
+
+        void output(){
+            System.out.print(this.id + " " + this.name + " ");
+            convert(plus);
+            convert(res);
+            System.out.print(fin +"\n");
+        }
+
+        static class Ss implements Comparator<Student>{
+            public int compare(Student a, Student b){
+                if ( a.res == b.res ) return a.id.compareTo(b.id);
+                if ( b.res > a.res ) return 1;
+                return -1;
+            }
+        }
+}
+
+

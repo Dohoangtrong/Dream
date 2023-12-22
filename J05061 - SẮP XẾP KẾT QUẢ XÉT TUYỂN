@@ -1,0 +1,73 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            arr.add( new Student( sc.nextLine(), sc.nextLine(), sc.nextDouble(), sc.nextDouble() ));
+        }
+        arr.sort( new Student.Ss() );
+        for ( Student x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+controller/Student.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Student {
+        static int cnt = 1;
+        private String ten, xepLoai, id;
+        private double diem;
+        private int tuoi;
+        public Student(String ten, String ngaySinh, double lyThuyet, double thucHanh){
+            this.id = String.format("PH%02d", cnt);
+            this.ten = ten;
+            int a = Integer.parseInt( ngaySinh.substring(6,10));
+            this.tuoi = 2021 - a;
+            double tmp = ( lyThuyet + thucHanh ) / 2 + tinhDiemThuong(lyThuyet,thucHanh);
+            if ( tmp > 10 ) this.diem = 10;
+            else this.diem = Math.round( tmp );
+            this.xepLoai = tinhXepHang(this.diem);
+            cnt++;
+        }
+        double tinhDiemThuong(double a, double b){
+            if ( a >= 8 && b >= 8 ) return 1;
+            if ( a >= 7.5 && b >= 7.5 ) return 0.5;
+            return 0;
+        }
+
+        String tinhXepHang(double a){
+            if ( a < 5 ) return "Truot";
+            if ( a == 5 || a == 6 ) return "Trung binh";
+            if ( a == 7 ) return "Kha";
+            if ( a == 8 ) return "Gioi";
+            return "Xuat sac";
+        }
+        @Override
+        public String toString(){
+            return id + " " + ten + " " + tuoi + " " + (int)diem + " " + xepLoai;
+        }
+
+        static class Ss implements Comparator<Student>{
+            public int compare(Student a, Student b){
+                if ( a.diem == b.diem ) return a.id.compareTo(b.id);
+                return (int)(b.diem - a.diem);
+            }
+        }
+}
+
+

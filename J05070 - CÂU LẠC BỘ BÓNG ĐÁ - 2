@@ -1,0 +1,99 @@
+controller/CLB.java
+package controller;
+
+import java.util.Comparator;
+
+public class CLB {
+    private String id, ten;
+    private long giaVe, soLuong, thanhTien;
+    public CLB(String id, String ten, long giaVe){
+        this.id = id;
+        this.ten = ten;
+        this.giaVe = giaVe;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public long getGiaVe() {
+        return giaVe;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    @Override
+    public String toString(){
+        return ten;
+    }
+
+
+}
+
+
+controller/Game.java
+package controller;
+
+import java.util.Comparator;
+
+public class Game {
+    private String id, ten;
+    private long thanhTien;
+    public Game(String id, String ten, long thanhTien){
+        this.id = id;
+        this.ten = ten;
+        this.thanhTien = thanhTien;
+    }
+
+    static class Ss implements Comparator<Game>{
+        public int compare(Game a, Game b){
+            if ( a.thanhTien == b.thanhTien ) return a.ten.compareTo(b.ten);
+            return a.thanhTien > b.thanhTien ? -1 : 1;
+        }
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + ten + " " + thanhTien;
+    }
+}
+
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<CLB> arr = new ArrayList<>();
+        ArrayList<Game> res = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            CLB x = new CLB( sc.nextLine(), sc.nextLine(), sc.nextLong() );
+            arr.add(x);
+        }
+        t = sc.nextInt();
+        for ( int i = 0; i < t; i++ ){
+            sc.nextLine();
+            String a = sc.next();
+            long b = Long.parseLong(sc.next());
+            for ( CLB x : arr ){
+                if ( x.getId().equals(a.substring(1,3)) ){
+                    Game k = new Game( a, x.getTen(), x.getGiaVe() * b );
+                    res.add(k);
+                }
+            }
+        }
+        res.sort(new Game.Ss());
+        for ( Game x : res ){
+            System.out.println(x);
+        }
+    }
+}
+

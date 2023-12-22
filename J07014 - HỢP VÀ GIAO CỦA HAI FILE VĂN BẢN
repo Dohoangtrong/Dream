@@ -1,0 +1,91 @@
+ptit/Main.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ptit;
+
+import java.io.IOException;
+
+/**
+ *
+ * @author nguyen
+ */
+public class Main {
+    public static void main(String[] args) throws IOException {
+        WordSet s1 = new WordSet("DATA1.in");
+        WordSet s2 = new WordSet("DATA2.in");
+        System.out.println(s1.union(s2));
+        System.out.println(s1.intersection(s2));
+    }
+    public static void main9324294(String[] args) throws IOException {
+        WordSet s1 = new WordSet("DATA1.in");
+        WordSet s2 = new WordSet("DATA2.in");
+        System.out.println(s1.union(s2));
+        System.out.println(s1.intersection(s2));
+    }
+}
+
+
+ptit/WordSet.java
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package ptit;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.TreeSet;
+
+/**
+ *
+ * @author nguyen
+ */
+public class WordSet {
+    public TreeSet<String> words = new TreeSet<>();
+    public WordSet(String path) throws FileNotFoundException {
+        Scanner input = new Scanner(new File(path));
+        while (input.hasNext()) {
+            words.add(input.next().toLowerCase());
+        }
+    }   
+
+    public WordSet(TreeSet<String> hhh) {
+        for (String x:hhh) this.words.add(x);
+    }
+    
+    public WordSet union(WordSet other) {
+        WordSet res = new WordSet(this.words);
+        res.words.addAll(other.words);
+        return  res;
+    }
+    
+    public WordSet intersection(WordSet other) {
+        WordSet res = new WordSet(this.words);
+        res.words.retainAll(other.words);
+        return res;
+    }
+    
+    public WordSet xor(WordSet other ) {
+        WordSet a = this.union(other);
+        WordSet b = this.intersection(other);
+        a.words.removeAll(b.words);
+        return a;
+    }
+
+    @Override
+    public String toString() {
+        String ans = "";
+        for (String x: words) {
+            ans += x + " ";
+        }
+        return  ans.trim();
+    }
+    
+    
+}
+
+

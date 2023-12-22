@@ -1,0 +1,82 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+
+    public static int tinhDiem(String a){
+        int l = a.length(), ans = 10;
+        for ( int i = 0; i < l; i++ ){
+            if ( a.charAt(i) == 'm' ) ans = ans-1;
+            if ( a.charAt(i) == 'v' ) ans -= 2;
+        }
+        return ans;
+    }
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            Student x = new Student( sc.nextLine(), sc.nextLine(), sc.nextLine() );
+            arr.add(x);
+        }
+        for ( int i = 0; i < t; i++ ){
+            String id = sc.next();
+            String diemDanh = sc.next();
+            int diem = tinhDiem(diemDanh);
+            for ( Student x : arr ){
+                if ( x.getId().equals(id) ){
+                    x.setDiem(diem);
+                    x.setGhiChu(diem);
+                }
+            }
+        }
+        for ( Student x : arr ){
+            System.out.println(x);
+        }
+
+    }
+}
+
+controller/Student.java
+package controller;
+
+import java.util.Comparator;
+
+public class Student {
+    private String id, ten, lop, ghiChu;
+    private int diem;
+    public Student(String id, String ten, String lop){
+        this.id = id;
+        this.ten = ten;
+        this.lop = lop;
+    }
+
+    public void setDiem(int diem) {
+        this.diem = diem;
+        if ( diem < 0 ) this.diem = 0;
+    }
+
+    public void setGhiChu(int diem) {
+        this.ghiChu = "";
+        if ( diem <= 0 ) this.ghiChu = "KDDK";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + ten + " " + lop + " " + diem + " " + ghiChu;
+    }
+
+
+}
+
+

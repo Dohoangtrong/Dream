@@ -1,0 +1,40 @@
+package GG;
+
+import java.io.*;
+import java.util.ArrayList;
+
+public class Main {
+
+    static int snt[] = new int[10005];
+    public static void eratos(){
+        snt[0] = snt[1] = 1;
+        for ( int i = 2; i < 101; i++ ){
+            if ( snt[i] == 0 ){
+                for ( int j = i * i; j < 10005; j += i ){
+                    snt[j] = 1;
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        eratos();
+        ObjectInputStream ois = new ObjectInputStream( new FileInputStream("DATA1.in"));
+        ArrayList<Integer> arr = (ArrayList<Integer>)ois.readObject();
+        ois = new ObjectInputStream( new FileInputStream("DATA2.in"));
+        ArrayList<Integer> brr = (ArrayList<Integer>)ois.readObject();
+        int cnta[] = new int[10005];
+        int cntb[] = new int[10005];
+        for ( Integer x : arr ){
+            if ( snt[x] == 0 ) cnta[x]++;
+        }
+        for ( Integer x : brr ){
+            if ( snt[x] == 0 ) cntb[x]++;
+        }
+        for ( int i = 2; i < 10005; i++ ){
+            if ( snt[i] == 0 && cnta[i] > 0 && cntb[i] > 0 ){
+                System.out.println( i + " " + cnta[i] + " " + cntb[i]);
+            }
+        }
+    }
+}

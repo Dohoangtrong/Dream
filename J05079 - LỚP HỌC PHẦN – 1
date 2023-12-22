@@ -1,0 +1,70 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> arr = new ArrayList<>();
+        Map<String,String> map = new HashMap<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            String nhom, id;
+            id = sc.nextLine();
+            nhom = sc.nextLine();
+            if ( !map.containsKey(id) ){
+                map.put(id,nhom);
+            }
+            Student x = new Student( id, nhom, sc.nextLine(), sc.nextLine() );
+            arr.add(x);
+        }
+        arr.sort(new Student.Ss());
+        t = Integer.parseInt(sc.nextLine());
+        for ( int i = 0; i < t; i ++ ){
+            String ans = sc.nextLine();
+            System.out.printf("Danh sach nhom lop mon %s:\n", map.get(ans));
+            for ( Student x : arr ){
+                if ( x.getId().equals(ans) ){
+                    System.out.println(x);
+                }
+            }
+        }
+
+
+    }
+}
+
+controller/Student.java
+package controller;
+
+import java.util.Comparator;
+
+public class Student {
+    private String id, nhom, ten, giangVien;
+    public Student(String id, String ten, String nhom, String giangVien){
+        this.id = id;
+        this.ten = ten;
+        this.nhom = nhom;
+        this.giangVien = giangVien;
+    }
+
+    public String getId() {
+        return id;
+    }
+    @Override
+    public String toString(){
+        return nhom + " " + giangVien;
+    }
+    static class Ss implements Comparator<Student>{
+        public int compare(Student a, Student b){
+            return a.nhom.compareTo(b.nhom);
+        }
+    }
+}
+

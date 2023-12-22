@@ -1,0 +1,40 @@
+danhsachsinhvien1/Main.java
+package danhsachsinhvien1;
+
+import java.io.*;
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) throws Exception{
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("SV.in"));
+        ArrayList<SinhVien> a = (ArrayList<SinhVien>) ois.readObject();
+        for(SinhVien x : a)
+            System.out.println(x);
+    }
+}
+
+danhsachsinhvien1/SinhVien.java
+package danhsachsinhvien1;
+
+import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class SinhVien implements Serializable{
+    private String ma, ten, lop;
+    private Date ngaysinh;
+    private float gpa;
+    public SinhVien(int i, String ten, String lop, String ns, float gpa) throws Exception{
+        this.ma = "B20DCCN" + String.format("%03d", i);
+        this.ten = ten;
+        this.lop = lop;
+        this.ngaysinh = new SimpleDateFormat("dd/MM/yyyy").parse(ns);
+        this.gpa = gpa;
+    }
+    @Override
+    public String toString(){
+        return ma + " " + ten + " " + lop + " " + new SimpleDateFormat("dd/MM/yyyy").format(ngaysinh) + " " + String.format("%.2f",gpa);
+    }
+}
+

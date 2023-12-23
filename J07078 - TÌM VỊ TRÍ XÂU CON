@@ -1,0 +1,43 @@
+package GG;
+
+import java.io.File;
+import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static List<Integer> findOccurrences(String s1, String s2) {
+        List<Integer> positions = new ArrayList<>();
+        int index = s1.indexOf(s2);
+        while (index != -1) {
+            positions.add(index + 1);
+            index = s1.indexOf(s2, index + 1);
+        }
+        return positions;
+    }
+
+    public static void main(String[] args) throws IOException {
+
+        Scanner sc = new Scanner( new File("STRING.in"));
+        int numTests = Integer.parseInt(sc.nextLine());
+
+        for (int i = 0; i < numTests; i++) {
+            String s1 = sc.nextLine();
+            String s2 = sc.nextLine();
+
+            List<Integer> positions = findOccurrences(s1, s2);
+            
+            if (!positions.isEmpty()) {
+                for (int position : positions) {
+                    System.out.print(position + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+}

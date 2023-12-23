@@ -1,0 +1,60 @@
+package GG;
+
+import java.util.*;
+public class Main {
+    static String rotageLx(String s){
+        char[] chars = s.toCharArray();
+        char tmp = chars[0];
+        chars[0] = chars[3];
+        chars[3] = chars[4];
+        chars[4] = chars[1];
+        chars[1] = tmp;
+        return new String(chars);
+    }
+
+    static String rotageRx(String s){
+        char[] chars = s.toCharArray();
+        char tmp = chars[2];
+        chars[2] = chars[1];
+        chars[1] = chars[4];
+        chars[4] = chars[5];
+        chars[5] = tmp;
+        return new String(chars);
+    }
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            HashMap<String,Integer> res = new HashMap<>();
+            Queue<String> q = new LinkedList<>();
+            String st = sc.nextLine();
+            String fin = sc.nextLine();
+            st = st.replace(" ", "");
+            fin = fin.replace(" ", "");
+            res.put(st,0);
+            q.add(st);
+            while(q.size()>0){
+                String k = q.poll();
+                int cnt = res.get(k);
+                String l = rotageLx(k);
+                if ( l.equals(fin) ){
+                    System.out.println(cnt+1);
+                    break;
+                } else {
+                    res.put(l,cnt+1);
+                    q.add(l);
+                }
+                String r = rotageRx(k);
+                if ( r.equals(fin) ){
+                    System.out.println(cnt+1);
+                    break;
+                } else {
+                    res.put(r, cnt + 1);
+                    q.add(r);
+                }
+            }
+        }
+    }
+
+}

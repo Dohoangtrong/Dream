@@ -1,0 +1,27 @@
+package Jo6007;
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-- > 0) {
+            int n = sc.nextInt();
+            if (n == 0) System.out.println("Impossible");
+            else {
+                HashSet<Character> solve = new HashSet<>();
+                for (int i = 1; i <= 100; i++) {
+                    String tmp = String.valueOf(n * i);
+                    for (int j = 0; j < tmp.length(); j++) {
+                        solve.add(tmp.charAt(j));
+                    }
+                    if (solve.size() == 10) {
+                        System.out.println(n * i);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,22 @@
+package GG;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i++ ) {
+            int res;
+            String s = sc.nextLine();
+            if ( s.length() == 1 ) res = Integer.parseInt(s);
+            else res = Integer.parseInt(s.substring(s.length()-2));
+            if ( res % 4 == 0 ) System.out.println(4);
+            else System.out.println(0);
+        }
+    }
+}

@@ -1,0 +1,33 @@
+package Jo6007;
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            Queue<Integer> Q = new LinkedList<>();
+            HashMap<Integer,Integer> map = new HashMap<>();
+            Q.add(a);
+            map.put(a,0);
+            while(!Q.isEmpty()){
+                int x = Q.poll();
+                if ( x == b ){
+                    System.out.println(map.get(x));
+                    break;
+                }
+                if ( !map.containsKey(x*2) && x < b ){
+                    map.put(x*2,map.get(x) + 1);
+                    Q.add(x*2);
+                }
+                if ( !map.containsKey(x-1) ){
+                    map.put(x-1,map.get(x) + 1);
+                    Q.add(x-1);
+                }
+            }
+        }
+    }
+}

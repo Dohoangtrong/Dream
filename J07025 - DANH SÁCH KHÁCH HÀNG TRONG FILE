@@ -1,0 +1,71 @@
+GG/Customer.java
+package GG;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class Customer {
+    private String ten, gioiTinh, ngaySinh, diaChi, ma;
+    private Long tuoi;
+    static int cnt = 1;
+    public SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    public Customer(String ten, String gioiTinh, String ngaySinh, String diaChi) throws ParseException {
+        this.ma = String.format("KH%03d", cnt);
+        cnt++;
+        this.ten = chuanHoa(ten);
+        this.gioiTinh = gioiTinh;
+        Date a = sdf.parse(ngaySinh);
+        tuoi = a.getTime();
+        this.ngaySinh = sdf.format(a);
+        this.diaChi = diaChi;
+    }
+
+    private String chuanHoa(String ten){
+        String res = "";
+        ten = ten.trim().toLowerCase();
+        String a[] = ten.split("\\s+");
+        for ( int i = 0; i < a.length; i++ ){
+            res += a[i].substring(0,1).toUpperCase() + a[i].substring(1) + " ";
+        }
+        return res;
+    }
+
+    static class Ss implements Comparator<Customer>{
+        public int compare(Customer a, Customer b){
+            return a.tuoi.compareTo(b.tuoi);
+        }
+    }
+
+    @Override
+    public String toString(){
+        return ma + " " + ten + " " + gioiTinh + " " + diaChi + " " + ngaySinh;
+    }
+}
+
+GG/Main.java
+package GG;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) throws FileNotFoundException, ParseException {
+        Scanner sc = new Scanner( new File("KHACHHANG.in") );
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<Customer> res = new ArrayList<>();
+        while(t-->0){
+            res.add(new Customer(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine()));
+        }
+        res.sort( new Customer.Ss());
+        for ( Customer x : res ){
+            System.out.println(x);
+        }
+    }
+
+}
+

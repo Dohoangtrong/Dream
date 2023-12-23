@@ -1,0 +1,40 @@
+package GG;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+
+    public static boolean check(String x){
+        if ( x.contains(".") || x.contains("!") || x.contains("?") ) return false;
+        return true;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> res = new ArrayList<>();
+        while(sc.hasNextLine()){
+            String x = sc.nextLine().toLowerCase();
+            String arr[] = x.split("\\s+");
+            String tmp = "";
+            int l = arr.length;
+            for ( int i = 0; i < l; i++ ) {
+                if (check(arr[i]) == true) tmp += arr[i] + " ";
+                else {
+                    if ( arr[i].length() == 1 ) tmp = tmp.trim() + arr[i];
+                    else tmp = tmp + arr[i];
+                    res.add(tmp);
+                    tmp = "";
+                }
+            }
+            if ( check(arr[l-1]) == true ) tmp = tmp.trim() + '.';
+            if ( tmp != "" ) res.add(tmp);
+        }
+        for ( String x : res ){
+            System.out.println(x.substring(0,1).toUpperCase()+x.substring(1));
+        }
+    }
+}

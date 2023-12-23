@@ -1,0 +1,46 @@
+package GG;
+
+import java.io.IOException;
+import java.util.*;
+public class Main {
+
+    public static boolean check(String x){
+        int l = x.length();
+        for ( int i = 0; i < l/2; i++ ){
+            if ( x.charAt(i) != x.charAt(l-1-i) ){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<String> res = new ArrayList<>();
+        int l = 0;
+        while( sc.hasNext() ){
+            String k = sc.next();
+            if ( check(k) == true ){
+                res.add(k);
+                l = Math.max(k.length(),l);
+            }
+        }
+        LinkedHashSet<String> re = new LinkedHashSet<>();
+        HashMap<String, Integer> k = new HashMap<>();
+        for ( String x : res ){
+            if ( x.length() == l ){
+                if ( k.containsKey(x) ){
+                    int c = k.get(x);
+                    k.put(x,c+1);
+                }else{
+                    k.put(x,1);
+                    re.add(x);
+                }
+            }
+        }
+        for ( String x : re ){
+            System.out.println(x + " " + k.get(x));
+        }
+    }
+
+}

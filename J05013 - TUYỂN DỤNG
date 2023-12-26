@@ -1,0 +1,66 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<NV> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            arr.add( new NV( sc.nextLine(), sc.nextDouble(),sc.nextDouble() ) );
+        }
+        arr.sort( new NV.Ss() );
+        for ( NV x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+controller/NV.java
+package controller;
+
+import java.util.Comparator;
+
+public class NV {
+    public static int cnt = 1;
+    private String ten, id, xepLoai;
+    private double thucHanh, lyThuyet, trungBinh;
+    public NV(String ten, double thucHanh, double lyThuyet){
+        this.id = String.format("TS%02d", cnt);
+        cnt++;
+        this.ten = ten;
+        this.thucHanh = chuanHoa(thucHanh);
+        this.lyThuyet = chuanHoa(lyThuyet);
+        this.trungBinh = ( this.lyThuyet + this.thucHanh ) / 2;
+        this.xepLoai = xetXepLoai(trungBinh);
+    }
+
+    public double chuanHoa(double a){
+        if ( a > 10 ) return a / 10;
+        return a;
+    }
+
+    public String xetXepLoai(double a){
+        if ( a < 5 ) return "TRUOT";
+        if ( a < 8 ) return "CAN NHAC";
+        if ( a < 9.5 ) return "DAT";
+        return "XUAT SAC";
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + ten + " " + String.format("%.2f", trungBinh) + " " + xepLoai;
+    }
+
+    static class Ss implements Comparator<NV>{
+        public  int compare(NV a, NV b){
+            return a.trungBinh < b.trungBinh ? 1 : -1;
+        }
+    }
+}
+

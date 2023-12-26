@@ -1,0 +1,27 @@
+package GG;
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        int k = sc.nextInt();
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for ( int i = 0; i < t; i++ ){
+            int x = sc.nextInt();
+            pq.add(x);
+        }
+        long ans = 0;
+        while(k-- > 0){
+            int top = pq.poll();
+            pq.add(-top);
+        }
+        while(!pq.isEmpty()){
+            ans += (long)pq.poll();
+        }
+        System.out.println(ans);
+    }
+}

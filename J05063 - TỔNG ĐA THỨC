@@ -1,0 +1,78 @@
+controller/DaThuc.java
+package controller;
+
+import java.util.Map;
+import java.util.TreeMap;
+
+public class DaThuc {
+    private String daThuc;
+    public DaThuc(String daThuc){
+        this.daThuc = daThuc;
+    }
+
+    public DaThuc cong(DaThuc tmp){
+        DaThuc res = new DaThuc("");
+        Map<Integer, Integer> map = new TreeMap<>();
+        String a[] = daThuc.split("[*x^ +]+");
+        String b[] = tmp.daThuc.split("[*x^ +]+");
+        int l = a.length;
+        for ( int i = 0; i < l; i+=2 ){
+            map.put(Integer.parseInt(a[i+1]),Integer.parseInt(a[i]));
+        }
+        l = b.length;
+        for ( int i = 0; i < l; i+= 2){
+            int x = Integer.parseInt(b[i+1]);
+            int y = Integer.parseInt(b[i]);
+            if ( map.containsKey(x) ){
+                map.put(x,y+map.get(x));
+            }else{
+                map.put(x,y);
+            }
+        }
+        String chuoi = "";
+        for(Map.Entry<Integer, Integer> entry: map.entrySet()){
+            chuoi = String.valueOf(entry.getValue()) + "*x^" + String.valueOf(entry.getKey()) + " + " + chuoi;
+        }
+        chuoi = chuoi.substring(0, chuoi.length() - 3);
+        res.daThuc += chuoi;
+        return res;
+    }
+
+    @Override
+    public String toString(){
+        return "" + daThuc;
+    }
+}
+
+
+controller/Main.java
+package controller;
+
+import java.text.ParseException;
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            DaThuc p = new DaThuc(sc.nextLine());
+            DaThuc q = new DaThuc(sc.nextLine());
+            DaThuc r = p.cong(q);
+            System.out.println(r);
+        }
+    }
+    public static void main6250832(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            DaThuc p = new DaThuc(sc.nextLine());
+            DaThuc q = new DaThuc(sc.nextLine());
+            DaThuc r = p.cong(q);
+            System.out.println(r);
+        }
+    }
+}
+
+

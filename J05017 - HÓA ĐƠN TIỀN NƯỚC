@@ -1,0 +1,61 @@
+controller/KhachSan.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Date;
+
+public class KhachSan {
+    static int cnt = 1;
+    private String ten, id;
+    private int chiSo;
+    private double tien;
+    public KhachSan(String ten, int cu, int moi){
+        this.ten = ten;
+        this.id = String.format("KH%02d", cnt);
+        cnt++;
+        this.chiSo = moi - cu;
+        this.tien = tinhTien(chiSo);
+    }
+
+    public double tinhTien(int chiSo){
+        if ( chiSo < 51 ) return (double) chiSo * 100 * 1.02;
+        if ( chiSo < 101 ) return ( 5000 + ( (double)chiSo - 50) * 150 ) * 1.03;
+        return ( 12500 + ( (double)chiSo - 100 ) * 200 ) * 1.05;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + ten + " " +(long) Math.round(tien);
+    }
+
+    static class Ss implements Comparator<KhachSan>{
+        public  int compare(KhachSan a, KhachSan b){
+            return a.tien < b.tien ? 1 : -1;
+        }
+    }
+}
+
+controller/Main.java
+package controller;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<KhachSan> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            arr.add( new KhachSan( sc.nextLine(), sc.nextInt(), sc.nextInt() ) );
+        }
+        arr.sort( new KhachSan.Ss() );
+        for ( KhachSan x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+

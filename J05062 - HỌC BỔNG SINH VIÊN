@@ -1,0 +1,80 @@
+controller/Main.java
+package controller;
+
+import java.text.ParseException;
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> arr = new ArrayList<>();
+        ArrayList<Double> diem = new ArrayList<>();
+        int t = sc.nextInt();
+        int suat = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            String ten = sc.nextLine();
+            double tbc = sc.nextDouble();
+            Student x = new Student(ten, tbc, sc.nextInt() );
+            arr.add(x);
+            diem.add(tbc);
+        }
+        Collections.sort(diem, Comparator.reverseOrder());
+        double x = diem.get(suat-1);
+        for ( Student y : arr ){
+            if ( y.getTbc() >= x && y.getRl() >= 70 ){
+                System.out.println(y + ": " + y.getHocBong());
+            }else{
+                System.out.println(y + ": KHONG");
+            }
+        }
+
+    }
+}
+
+controller/Student.java
+package controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class Student {
+    private String name, hocBong;
+    private double tbc;
+    private int rl;
+    public Student(String name, double tbc, int rl){
+        this.name = name;
+        this.hocBong = xetHocBong(tbc,rl);
+        this.tbc = tbc;
+        this.rl = rl;
+    }
+    String xetHocBong ( double tbc, int rl ){
+        if ( tbc >= 3.6 && rl >= 90 ) return "XUATSAC";
+        if ( tbc >= 3.2 && rl >= 80 ) return "GIOI";
+        if ( tbc >= 2.5 && rl >= 70 ) return "KHA";
+        return "KHONG";
+    }
+
+    public String getHocBong() {
+        return hocBong;
+    }
+
+    public double getTbc() {
+        return tbc;
+    }
+
+    public int getRl() {
+        return rl;
+    }
+
+    @Override
+    public String toString(){
+        return name;
+    }
+
+
+}
+

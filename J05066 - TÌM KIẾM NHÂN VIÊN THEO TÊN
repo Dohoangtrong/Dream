@@ -1,0 +1,71 @@
+controller/Main.java
+package controller;
+
+import java.util.*;
+
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<NV> arr = new ArrayList<>();
+        for ( int i = 0; i < t; i++ ){
+            String s = sc.next();
+            String s1 = s.substring(0,2), s2 = s.substring(2,4), s3 = s.substring(4);
+            int x = Integer.parseInt(s3);
+            if(x > 1 && s1.compareTo("GD") == 0)
+                s1 = "NV";
+            else if(x > 3 && s1.compareTo("TP") == 0)
+                s1 = "NV";
+            else if(x > 3 && s1.compareTo("PP") == 0)
+                s1 = "NV";
+            String ten = sc.nextLine();
+            arr.add(new NV(s1,s2+s3, ten));
+        }
+        arr.sort( new NV.Ss() );
+        t = Integer.parseInt(sc.nextLine());
+        for ( int i = 0; i < t; i++ ){
+            String x = sc.nextLine().toLowerCase();
+            for ( NV nv : arr ){
+                boolean check = nv.getTen().toLowerCase().contains(x);
+                if ( check ){
+                    System.out.println(nv);
+                }
+            }
+            System.out.println();
+        }
+    }
+}
+
+controller/NV.java
+package controller;
+
+import java.util.Comparator;
+
+public class NV {
+    private String ten, maChucVu, soHieu, bacLuong;
+    public NV(String maChucVu, String ma, String ten){
+        this.ten = ten;
+        this.maChucVu = maChucVu;
+        this.soHieu = ma.substring(2);
+        this.bacLuong = ma.substring(0,2);
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    @Override
+    public String toString(){
+        return ten + " " + maChucVu + " " + soHieu + " " + bacLuong;
+    }
+
+    static class Ss implements Comparator<NV>{
+        public int compare(NV a, NV b){
+            if ( b.bacLuong.equals(a.bacLuong) ) return a.soHieu.compareTo(b.soHieu);
+            return b.bacLuong.compareTo(a.bacLuong);
+        }
+    }
+}
+

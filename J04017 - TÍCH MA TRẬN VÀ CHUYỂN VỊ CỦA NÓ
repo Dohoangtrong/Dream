@@ -1,0 +1,91 @@
+controller/Main.java
+package controller;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+             int n = sc.nextInt(), m = sc.nextInt();
+             Matrix a = new Matrix(n,m);
+             a.nextMatrix(sc);
+             Matrix b = a.trans();
+             System.out.println(a.mul(b));
+        }
+    }
+    public static void main3028062(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt(), m = sc.nextInt();
+            Matrix a = new Matrix(n,m);
+            a.nextMatrix(sc);
+            Matrix b = a.trans();
+            System.out.println(a.mul(b));
+        }
+    }
+}
+
+
+controller/Matrix.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Matrix {
+    private int a, b ,arr[][] = new int [105][105];
+    public Matrix(int a, int b){
+        this.a = a;
+        this.b = b;
+    }
+    public void nextMatrix(Scanner sc){
+        for ( int i = 0; i < a; i ++ ){
+            for ( int j = 0; j < b; j++ ){
+                arr[i][j] = sc.nextInt();
+            }
+        }
+    }
+
+    public void setArr(int[][] arr) {
+        this.arr = arr;
+    }
+
+    public Matrix trans(){
+        int res[][] = new int[b][a];
+        for ( int i = 0; i < a; i++ ){
+            for ( int j = 0; j < b; j++ ){
+                res[j][i] = arr[i][j];
+            }
+        }
+        Matrix x = new Matrix(b,a);
+        x.setArr(res);
+        return x;
+    }
+
+    public String mul(Matrix tmp){
+        int res[][] = new int[a][tmp.b];
+        for(int i = 0; i < a; i++)
+            for(int j = 0; j < tmp.b; j++){
+                res[i][j] = 0;
+                for(int k = 0; k < b; k++)
+                    res[i][j] += arr[i][k] * tmp.arr[k][j];
+            }
+        String s = "";
+        for(int i = 0; i < a; i++){
+            for(int j = 0; j < tmp.b; j++)
+                s = s + String.format("%d ", res[i][j]);
+            s += "\n";
+        }
+        return s;
+    }
+}
+
+

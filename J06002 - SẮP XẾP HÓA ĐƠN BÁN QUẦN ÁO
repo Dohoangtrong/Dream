@@ -1,0 +1,108 @@
+J06001/Bill.java
+package J06001;
+
+import java.util.Comparator;
+
+public class Bill {
+    private String id, name;
+    private long discount, total;
+    public Bill(String id, long count, long price, String name){
+        this.id = id;
+        this.name = name;
+        discount = procDiscount(price, count);
+        total = price * count - discount;
+    }
+
+    private long procDiscount(long price, long count){
+        if ( count >= 150 ) return 50 * count * price / 100;
+        if ( count >= 100 ) return 30 * count * price / 100;
+        if ( count >= 50 ) return 15 * count * price / 100;
+        return 0;
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + name + " " + discount + " " + total;
+    }
+
+    static class Ss implements Comparator<Bill>{
+        public int compare(Bill a, Bill b){
+            return Long.compare(b.total,a.total);
+        }
+    }
+}
+
+J06001/Main.java
+package J06001;
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Product> products = new ArrayList<>();
+        int t = sc.nextInt();
+        while(t-->0){
+            sc.nextLine();
+            String id = sc.nextLine();
+            String name = sc.nextLine();
+            long price1 = sc.nextLong();
+            long price2 = sc.nextLong();
+            products.add( new Product(id, name, price1, price2) );
+        }
+        ArrayList<Bill> bills = new ArrayList<>();
+        t = sc.nextInt();
+        for ( int i = 1; i <= t ; i++ ){
+            String k = sc.next();
+            String name = k.substring(0,2);
+            String type = k.substring(2);
+            String id = k + "-" + String.format("%03d", i);
+            long n = Long.parseLong(sc.next());
+            long price = 0;
+            for ( Product x : products ){
+                if ( x.getId().equals(name) ){
+                    if ( type.equals("1") ) price = x.getPrice1();
+                    else price = x.getPrice2();
+                    name = x.getName();
+                    break;
+                }
+            }
+            bills.add( new Bill(id, n, price, name) );
+        }
+        bills.sort( new Bill.Ss() );
+        for ( Bill x : bills ){
+            System.out.println(x);
+        }
+    }
+}
+
+J06001/Product.java
+package J06001;
+
+public class Product {
+    private String id, name;
+    private long price1, price2;
+    public Product( String id, String name, long price1, long price2 ){
+        this.id = id;
+        this.name = name;
+        this.price1 = price1;
+        this.price2 = price2;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getPrice1() {
+        return price1;
+    }
+
+    public long getPrice2() {
+        return price2;
+    }
+}
+

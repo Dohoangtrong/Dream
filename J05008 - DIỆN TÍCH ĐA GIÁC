@@ -1,0 +1,90 @@
+controller/controller_users.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class controller_users {
+
+
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Point> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        while(t-->0){
+            int n = sc.nextInt();
+            Queue<Point> Q = new LinkedList<>();
+            for ( int i = 0; i < n; i ++ ){
+                Point x = new Point();
+                x.input(sc);
+                Q.add(x);
+            }
+            double res = 0;
+            while(Q.size() > 2){
+                Point a = Q.poll();
+                Point b = Q.poll();
+                Point c = Q.poll();
+                Triangle tmp = new Triangle(a,b,c);
+                tmp.init();
+                res += tmp.area();
+                Q.add(a);
+                Q.add(c);
+            }
+            System.out.printf("%.3f\n", res);
+        }
+    }
+}
+
+
+controller/Point.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Point {
+    private double x, y;
+    void input(Scanner sc) {
+        this.x = sc.nextDouble();
+        this.y = sc.nextDouble();
+    }
+    public double getX() {
+        return x;
+    }
+    public double getY() {
+        return y;
+    }
+}
+
+controller/Triangle.java
+package controller;
+
+public class Triangle {
+    private Point x, y, z;
+    private double ed1, ed2, ed3;
+
+    public Triangle(Point x, Point y, Point z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    void init(){
+        this.ed1 = edge(x, y);
+        this.ed2 = edge(x, z);
+        this.ed3 = edge(y, z);
+    }
+    public double edge( Point b, Point a ){
+        double re1 = a.getX() - b.getX();
+        double re2 = a.getY() - b.getY();
+        return Math.sqrt(re1 * re1 + re2 * re2);
+    }
+
+    public double area(){
+        double res = (ed1 + ed2 + ed3) * (-ed1 + ed2 + ed3) * (ed1 - ed2 + ed3) * (ed1 + ed2 - ed3);
+        return Math.sqrt(res) / 4;
+    }
+}
+

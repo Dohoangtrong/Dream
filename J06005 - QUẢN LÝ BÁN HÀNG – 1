@@ -1,0 +1,143 @@
+J06005/Bill.java
+package J06005;
+
+public class Bill {
+    private String id;
+    private Customer customer;
+    private Product product;
+    private long quantity, total;
+    public Bill(int id, Customer a, Product b, long quantity){
+        this.id = String.format("HD%03d", id);
+        this.customer = a;
+        this.product = b;
+        this.quantity = quantity;
+        this.total = quantity * b.getB();
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + customer.getName() + " " + customer.getAddress()
+                + " " + product.getName() + " " + product.getUnit() + " " + product.getA() + " " + product.getB()
+                + " " + quantity + " " + total;
+    }
+}
+
+J06005/Customer.java
+package J06005;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Customer {
+    private String id, name, gender,date, address;
+    public Customer(int id, String name, String gender, String date, String address ){
+        this.id = "KH" + String.format("%03d", id);
+        this.name = name;
+        this.gender = gender;
+        this.date = date;
+        this.address = address;
+    }
+    public Customer(){}
+    public String getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getDate() {
+        return date;
+    }
+    public String getAddress() {
+        return address;
+    }
+}
+
+J06005/Main.java
+package J06005;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Product> products = new ArrayList<>();
+        ArrayList<Customer> customers = new ArrayList<>();
+        ArrayList<Bill> bills = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 1; i <= t; i++ ){
+            String name = sc.nextLine();
+            String gender = sc.nextLine();
+            String date = sc.nextLine();
+            String add = sc.nextLine();
+            customers.add(new Customer( i , name , gender , date , add ));
+        }
+        t = sc.nextInt();
+        for ( int i = 1; i <= t; i++ ){
+            sc.nextLine();
+            String name = sc.nextLine();
+            String unit = sc.nextLine();
+            long price1 = sc.nextLong();
+            long price2 = sc.nextLong();
+            products.add( new Product( i, name, unit, price1, price2 ) );
+        }
+        t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 1; i <= t; i++ ){
+            String arr[] = sc.nextLine().split("\\s+");
+            Customer cus = new Customer();
+            Product pro = new Product();
+            for ( Customer x : customers ){
+                if ( x.getId().equals(arr[0]) ){
+                    cus = x;
+                    break;
+                }
+            }
+            for ( Product x : products ){
+                if ( x.getId().equals(arr[1]) ){
+                    pro = x;
+                    break;
+                }
+            }
+            bills.add(new Bill(i, cus, pro, Long.parseLong(arr[2].trim())));
+        }
+        for ( Bill x : bills ){
+            System.out.println(x);
+        }
+    }
+}
+
+
+J06005/Product.java
+package J06005;
+
+public class Product {
+    private String unit, id, name;
+    private long a, b;
+    public Product(int id, String name, String unit, long a, long b){
+        this.id = "MH" + String.format("%03d", id);
+        this.name = name;
+        this.unit = unit;
+        this.a = a;
+        this.b = b;
+    }
+    public Product(){}
+    public String getUnit() {
+        return unit;
+    }
+    public String getId() {
+        return id;
+    }
+    public String getName() {
+        return name;
+    }
+    public long getA() {
+        return a;
+    }
+    public long getB() {
+        return b;
+    }
+}
+

@@ -1,0 +1,78 @@
+controller/Main.java
+package controller;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<TramDo> arr = new ArrayList<>();
+        Map<String,Integer> map = new HashMap<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        int cnt = 1;
+        for ( int i = 0; i < t; i ++ ){
+            String name = sc.nextLine();
+            String batDau = sc.nextLine();
+            String ketThuc = sc.nextLine();
+            double theTich = Double.parseDouble(sc.nextLine());
+            if ( map.containsKey(name) ){
+                int tmp = map.get(name);
+                arr.get(tmp-1).setTime(batDau,ketThuc);
+                arr.get(tmp-1).setTheTich(theTich);
+            }else{
+                map.put(name,cnt);
+                TramDo x = new TramDo(cnt, name, batDau, ketThuc, theTich);
+                arr.add(x);
+                cnt++;
+            }
+        }
+        for ( TramDo x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+controller/TramDo.java
+package controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class TramDo {
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+    private String id, name;
+    private double time, theTich;
+    public TramDo(int id, String name, String start, String end, double v) throws ParseException {
+        this.id = String.format("T%02d", id);
+        this.name = name;
+        Date st = sdf.parse(start);
+        Date ed = sdf.parse(end);
+        this.time = (double) ( ed.getTime() - st.getTime() ) / ( 60 * 60 * 1000 );
+        this.theTich = v;
+    }
+
+    public void setTime( String start, String end ) throws ParseException {
+        Date st = sdf.parse(start);
+        Date ed = sdf.parse(end);
+        this.time = time + (double) ( ed.getTime() - st.getTime() ) / ( 60 * 60 * 1000 );
+    }
+
+    public void setTheTich(double theTich){
+        this.theTich = this.theTich + theTich;
+    }
+
+    @Override
+    public String toString(){
+        return id + " " + name + " " + String.format("%.2f", theTich / time);
+    }
+
+}
+

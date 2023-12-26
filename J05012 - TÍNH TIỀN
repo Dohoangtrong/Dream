@@ -1,0 +1,58 @@
+controller/Main.java
+package controller;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Product> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            String id = sc.nextLine();
+            String name = sc.nextLine();
+            arr.add( new Product( id ,name ,sc.nextLong(),sc.nextLong(), sc.nextLong() ) );
+        }
+        arr.sort( new Product.Ss() );
+        for ( Product x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+controller/Product.java
+package controller;
+
+import java.util.Comparator;
+import java.util.Scanner;
+
+public class Product {
+    private String ten, id;
+    private long soLuong, donGia, chietKhau, thanhTien;
+    public Product(String id, String ten, long soluong, long dongia, long chietKhau){
+        this.id = id;
+        this.ten = ten;
+        this.soLuong = soluong;
+        this.donGia = dongia;
+        this.chietKhau = chietKhau;
+        this.thanhTien = soluong * dongia - chietKhau;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + ten + " " + soLuong + " " + donGia + " " + chietKhau + " " + thanhTien;
+    }
+
+    static class Ss implements Comparator<Product>{
+        public  int compare( Product a, Product b){
+            return a.thanhTien < b.thanhTien ? 1 : -1;
+        }
+    }
+}
+

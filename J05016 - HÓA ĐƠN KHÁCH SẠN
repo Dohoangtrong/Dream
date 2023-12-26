@@ -1,0 +1,72 @@
+controller/KhachSan.java
+package controller;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Comparator;
+import java.util.Date;
+
+public class KhachSan {
+    static int cnt = 1;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    private String ten, soPhong, id;
+    private Date batDau, ketThuc;
+    private int tien, soNgay;
+    public KhachSan(String ten, String soPhong, String batDau, String ketThuc, int phatSinh) throws ParseException {
+        this.ten = ten;
+        this.id = String.format("KH%02d", cnt);
+        cnt++;
+        this.soPhong = soPhong;
+        this.batDau = sdf.parse(batDau);
+        this.ketThuc = sdf.parse(ketThuc);
+        this.soNgay = (int) ( ( this.ketThuc.getTime() - this.batDau.getTime() ) / ( 60 * 60 * 24 * 1000 ) ) + 1;
+        int a = tinhTien(soPhong);
+        this.tien = a * soNgay + phatSinh;
+    }
+
+    public int tinhTien(String a){
+        a = a.substring(0,1);
+        if ( a.equals("1") ) return 25;
+        if ( a.equals("2") ) return 34;
+        if ( a.equals("3") ) return 50;
+        return 80;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return id + " " + ten + " " + soPhong + " " + soNgay + " " + tien;
+    }
+
+    static class Ss implements Comparator<KhachSan>{
+        public  int compare(KhachSan a, KhachSan b){
+            return a.tien < b.tien ? 1 : -1;
+        }
+    }
+}
+
+controller/Main.java
+package controller;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<KhachSan> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        for ( int i = 0; i < t; i ++ ){
+            sc.nextLine();
+            arr.add( new KhachSan( sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextLine(), sc.nextInt() ) );
+        }
+        arr.sort( new KhachSan.Ss() );
+        for ( KhachSan x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+

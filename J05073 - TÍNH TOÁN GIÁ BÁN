@@ -1,0 +1,61 @@
+GG/Main.java
+package GG;
+
+import java.util.*;
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<MatHang> res = new ArrayList<>();
+        int t = Integer.parseInt(sc.nextLine());
+        while(t-->0){
+            res.add( new MatHang(sc.next(),Integer.parseInt(sc.next()),Integer.parseInt(sc.next())));
+        }
+        for ( MatHang x : res ){
+            System.out.println(x);
+        }
+    }
+
+}
+
+GG/MatHang.java
+package GG;
+
+public class MatHang {
+    private String name;
+    private double total;
+    public MatHang(String name, int price, int number){
+        this.name = name;
+        this.total = thanhTien(price,number,name);
+    }
+
+    public double thue(String name) {
+        if( name.startsWith("T")) return 0.29;
+        if( name.startsWith("C")) return 0.1;
+        if( name.startsWith("D")) return 0.08;
+        return 0.02;
+    }
+
+    public double tongThue(String name) {
+        if( name.endsWith("C")) return thue(name) * 0.95;
+        return thue(name);
+    }
+
+    public double vanChuyen() {
+        if( name.startsWith("T")) return 0.04;
+        if( name.startsWith("C")) return 0.03;
+        if( name.startsWith("D")) return 0.025;
+        return 0.005;
+    }
+
+    public double thanhTien(int price, int number, String name) {
+        double tongTien = price * number + price * number * tongThue(name) + price * number * vanChuyen();
+        double res = tongTien + tongTien * 0.2;
+        return (double) Math.round(( res / number ) * 100) / 100;
+    }
+
+    @Override
+    public String toString(){
+        return this.name + " " + String.format("%.2f", this.total) ;
+    }
+}
+

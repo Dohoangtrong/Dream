@@ -1,0 +1,65 @@
+controller/Main.java
+package controller;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Main {
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        ArrayList<NV> arr = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        for ( int i = 0; i < t; i ++ ){
+            arr.add( new NV( sc.nextLine(), sc.nextLine(), sc.nextLine() ) );
+        }
+        arr.sort( new NV.Ss() );
+        for ( NV x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+controller/NV.java
+package controller;
+
+import java.util.Comparator;
+
+public class NV {
+    private String ten, id, viTri;
+    private double vanToc;
+    public NV(String ten, String viTri, String time){
+        this.id = xetId(ten,viTri);
+        this.ten = ten;
+        this.viTri = viTri;
+        double gio = Double.parseDouble(time.substring(0,1)) - 6.0;
+        double phut = Double.parseDouble(time.substring(2)) / 60;
+        vanToc =  120.0 / ( gio + phut ) ;
+    }
+
+    public String xetId(String ten, String viTri){
+        String res = "";
+        String brr[] = viTri.split("\\s+");
+        for ( int i = 0; i < brr.length; i++ ){
+            res = res + brr[i].substring(0,1).toUpperCase();
+        }
+        String arr[] = ten.split("\\s+");
+        for ( int i = 0; i < arr.length; i++ ){
+            res = res + arr[i].substring(0,1).toUpperCase();
+        }
+        return res;
+    }
+
+    @Override
+    public String toString() {
+        return id + " " + ten + " " + viTri + " " + (int) Math.round( vanToc ) + " Km/h";
+    }
+
+    static class Ss implements Comparator<NV>{
+        public  int compare(NV a, NV b){
+            return a.vanToc < b.vanToc ? 1 : -1;
+        }
+    }
+}
+

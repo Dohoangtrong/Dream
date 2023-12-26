@@ -1,0 +1,47 @@
+package Jo6007;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        HashMap<String, String> student = new HashMap<>();
+        ArrayList<String> res = new ArrayList<>();
+        int t = sc.nextInt();
+        sc.nextLine();
+        while(t-->0){
+            sc.nextLine();
+        }
+        t = sc.nextInt();
+        sc.nextLine();
+        while(t-->0){
+            String arr[] = sc.nextLine().split("\\s+");
+            String id = arr[0];
+            String name = "";
+            for ( int i = 1; i < arr.length; i++ ){
+                name += arr[i] + " ";
+            }
+            student.put(id,name.trim());
+        }
+        t = sc.nextInt();
+        sc.nextLine();
+        HashMap<String, Double> k = new HashMap<>();
+        while(t-->0){
+            String arr[] = sc.nextLine().split("\\s+");
+            if ( !k.containsKey(student.get(arr[0])) ){
+                k.put(student.get(arr[0]),Double.parseDouble(arr[2]));
+                res.add(student.get(arr[0]));
+            }else{
+                double x = k.get(student.get(arr[0])) + Double.parseDouble(arr[2]);
+                k.put(student.get(arr[0]),x);
+            }
+        }
+        for ( String x : res ){
+            System.out.println(x + " " + String.format("%.2f",k.get(x)));
+        }
+
+    }
+}

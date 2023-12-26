@@ -1,0 +1,105 @@
+controller/GoiCuoc.java
+package controller;
+
+public class GoiCuoc {
+    private String ten;
+    private int gia;
+    public  GoiCuoc(String ten, int gia){
+        this.ten = ten;
+        this.gia = gia;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    public int getGia() {
+        return gia;
+    }
+}
+
+controller/Main.java
+package controller;
+
+import java.text.ParseException;
+import java.util.*;
+
+
+public class Main {
+
+    public static void main(String[] args) throws ParseException {
+        Scanner sc = new Scanner(System.in);
+        int t = Integer.parseInt(sc.nextLine());
+        ArrayList<SDT> arr = new ArrayList<>();
+        Map<String,GoiCuoc> map = new HashMap<>();
+        GoiCuoc abc = new GoiCuoc("Noi mang", 800);
+        map.put("NM", abc);
+        for ( int i = 0; i < t; i++ ){
+            String id = sc.nextLine();
+            GoiCuoc x = new GoiCuoc(sc.nextLine(), sc.nextInt());
+            sc.nextLine();
+            map.put(id,x);
+        }
+        t = Integer.parseInt(sc.nextLine());
+        for ( int i = 0; i < t; i++ ){
+            String str[] = sc.nextLine().split("\\s+");
+            String sdt = str[0];
+            String maVung;
+            if ( sdt.charAt(0) == '0' ) maVung = sdt.substring(1,3);
+            else maVung = "NM";
+            String tinh = map.get(maVung).getTen();
+            int gia = map.get(maVung).getGia();
+            int time = XuLySDT.xuLy(str[1],str[2],maVung);
+            SDT x = new SDT(sdt,tinh,time,gia*time);
+            arr.add(x);
+        }
+        arr.sort( new SDT.Ss() );
+        for ( SDT x : arr ){
+            System.out.println(x);
+        }
+    }
+}
+
+controller/SDT.java
+package controller;
+
+import java.util.Comparator;
+
+public class SDT {
+    private String sdt, tinh;
+    private int thanhTien, time;
+    public SDT(String sdt, String tinh, int time, int thanhTien){
+        this.sdt = sdt;
+        this.tinh = tinh;
+        this.thanhTien = thanhTien;
+        this.time = time;
+    }
+    @Override
+    public String toString(){
+        return sdt + " " + tinh + " " + time + " " + thanhTien;
+    }
+
+    static class Ss implements Comparator<SDT>{
+        public int compare(SDT a, SDT b){
+            return a.thanhTien < b.thanhTien ? 1 : -1;
+        }
+    }
+}
+
+controller/XuLySDT.java
+package controller;
+
+public class XuLySDT {
+    public static int xuLy(String a, String b, String ma){
+        int x = Integer.parseInt(b.substring(3)) - Integer.parseInt(a.substring(3));
+        int y = Integer.parseInt(b.substring(0,2)) - Integer.parseInt(a.substring(0,2));
+        if(x < 0){
+            x += 60;
+            y -= 1;
+        }
+        x = y * 60 + x;
+        if ( ma.equals("NM") ) return (int) Math.ceil( (double) x / 3 );
+        return x;
+    }
+}
+
